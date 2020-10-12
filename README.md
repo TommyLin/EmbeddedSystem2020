@@ -1,5 +1,16 @@
 # 【109上】5267嵌入式系統設計 Embedded System Design
 
+## Members
+| 姓名   | 系所     | 學號    | 電話        |
+|--------|----------|---------|-------------|
+| 林宏文 | 交大電工 | 0880121 | 0933-061461 |
+| 莊妘家 | 清大工工 |         | 0912-881669 |
+| 劉建甫 | 交大電控 | 0880002 | 0981-108172 |
+
+## Group / Board ID
+* Group: 19
+* Board: 19, 25
+
 ## Schedule of the lab:
 ### Lab 1
 <pre> Hello World in an embedded system. </pre>
