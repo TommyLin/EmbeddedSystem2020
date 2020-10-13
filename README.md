@@ -12,7 +12,7 @@
 * Board: 19, 25
 
 ## Schedule of the lab:
-### Lab 1
+### [Lab 1](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab1/doc/109_lab_1.pdf)
 <pre> Hello World in an embedded system. </pre>
 - [X] 09/24 Lab 1 -- Platform set up
 - [X] 10/08 Lab 1 -- System Development Platforms and Tools
