@@ -1,0 +1,4 @@
+linux & android:
+echo 0 > /sys/class/leds/ledX/brightness	灭
+echo 1 > /sys/class/leds/ledX/brightness	亮
+X为数字4,5,6

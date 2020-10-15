@@ -1,0 +1,21 @@
+linux:
+播放：
+1.
+执行aplay -l查看当前声卡信息
+2.
+执行aplay -Dhw:0,0 file.wav
+选择第0个声卡播放wav文件声音
+
+
+录音：
+arecord file.wav
+录音保存在file.wav文件中
+
+控制：
+amixer设置声音
+
+amixer cset numid=1 192
+
+android:
+使用录音apk录音
+使用播放器，播放声音

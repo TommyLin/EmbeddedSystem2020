@@ -1,0 +1,12 @@
+linux:
+sata如果是fat格式
+mount -t vfat /dev/sda1 /mnt	将sata第一个分区挂载到/mnt目录下
+ls /mnt		进入/mnt目录查看sata内容
+touch /mnt/file.txt	在sata中创建一个文件测试sata可写
+
+android:
+mkdir /data/mnt
+mount -t vfat /dev/sda1 /data/mnt    将sata第一个分区挂载到/data/mnt目录下
+ls /data/mnt         进入/mnt目录查看sata内容
+touch /data/mnt/file.txt     在sata中创建一个文件测试sata可写
+

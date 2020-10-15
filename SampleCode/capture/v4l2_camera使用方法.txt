@@ -1,0 +1,38 @@
+关于v4l2_camera.c源码的说明 --Quentin 2017-02-23
+v4l2_camera.c 
+	源码经测试：支持tq-ov5640，tvp-5150，usb-摄像头的使用。
+	其中：tq-ov5640，tvp-5150摄像头由于sensor的iotrl支持的使用操作比较多，
+	"v4l2_camera.c"程序中采用overlay方式预览摄像头功能，由于不需要转码预览的时候效果比较好;
+	而usb-摄像头其iotrl功能支持的不多，"v4l2_camera.c"采用capture方式获取摄像头帧数据，
+	后经转码再显示到lcd中，因此lcd预览摄像头时会出现不流畅现象，
+	显示的同时也会自动的将照片保存到目标"/v4l2_test.yuv"。
+
+
+
+//使用指令   源码求助方法: ./v4l2_camera -help
+1.参数说明：【为零的参数可以不需要附加，如：./v4l2_camera ==> ./v4l2_camera -if 0】
+   " -if <input frame> 0orNull-640*480,1-720*576\n"\  --- 可省，默认 640*480
+   " -of <output frame> 0-800*480, 1-'=-if'\n"\		--- 可省，默认800*480
+   " -iw <input width>\n -ih <input height>\n" \     --- 可省，默认 640*480
+   " -ow <display width>\n -oh <display height>\n" \	--- 可省，默认 800*480
+   " -r <rotate mode>\n -t <timeout>\n" \	--- 可省，默认5s
+   " -di <camera select, /dev/video0, /dev/video1,/dev/video2> \n" \	--- 可省，默认/dev/video0
+   " -v <camera color> 1-brightness 2-saturation"\	
+   " 3-red 4-blue 5-black balance\n"\	--- 可省，默认 0
+   " -m <capture mode> 0-low resolution 1-high resolution\n" \	--- 可省，默认0
+   " -fr <frame rate> 30fps by default\n" \ 	--- 可省，默认30
+   " -fg foreground mode when -fg specified as 1,"\		--- 可省，默认1
+
+2.运行指令示例						   
+./v4l2_camera -if 0 -of 0 -t 5 -fr 30 -m 0 -t 5 -di /dev/video2 -v 2
+./v4l2_camera -if 1 -of 0 -t 5 -fr 30 -m 0 -t 5 -di /dev/video0 -r 1
+./v4l2_camera -iw 720 -ih 576 -ow 800 -oh 480 -fr 30 -m 0 -t 5
+
+./v4l2_camera -iw 640 -ih 480 -ow 1366 -oh 768 -fr 30 -m 0 -t 5
+
+
+精简：
+./v4l2_camera
+./v4l2_camera -di /dev/video2
+略
+

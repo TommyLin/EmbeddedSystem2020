@@ -1,0 +1,13 @@
+在linux+（文件系统：qt ubunut debian）下可通过gstreamer应用实现多媒体硬件编解码
+
+命令行输入gst-play-1.0 音/视频文件 或 gplay-1.0 音/视频文件 即可播放 （eg:#gplay-1.0 /test.mp3;#gst-play-1.0 /test_file.rmvb ）
+
+格式转换（视频编码）：
+#gst-launch-1.0 filesrc location=/原文件路径 typefind=true ! video/quicktime ! aiurdemux ! vpudec ! imxvideoconvert_ipu ! video/x-raw,format=NV12,width=1280,height=720 ! vpuenc_h263 ! avimux ! filesink location=/生成文件
+
+摄像头测试：
+#gst-launch-1.0 imxv4l2src device=/dev/$videoX ! 'video/x-raw,format=(string)UYVY,width=640,height=480,framerate=(fraction)30/1' ! imxv4l2sink
+
+$videoX中X的数值为0～15，根据实际情况而定，一般为0
+示例中width=640，height=480为分辨率。天嵌配套ov5640支持的分辨率为 1280*720 720*480 640*480 320*240，如果输入其他不支持的分辨率如640*481，将不会有显示。
+

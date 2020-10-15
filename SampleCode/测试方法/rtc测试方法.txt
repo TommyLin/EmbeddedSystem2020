@@ -1,0 +1,9 @@
+linux:
+设置系统时间
+date -s 201610171200
+将系统时间写进rtc中
+hwclock -w
+
+
+android:
+进入设置里面修改时间

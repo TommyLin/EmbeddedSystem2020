@@ -1,0 +1,38 @@
+测试方法一：
+linux:
+配置：
+ifconfig can0 down
+ip link set can0 type can bitrate 100000 triple-sampling on
+ifconfig can0 up
+
+接收：
+candump can0
+
+发送：
+cansend can0 123#DEADBEEF
+
+can1:
+查看当前设备：ifconfig
+配置: 波特率100kbPs
+ifconfig can1 down
+ip link set can1 type can bitrate 100000 triple-sampling on
+ifconfig can1 up
+
+接收：
+candump can1
+
+发送：
+cansend can1 123#DEADBEEF
+测试方法二：
+	运行can_test中can文件，运行命令./can
+	注意：需要将can0，can1连接起来测试，can0发送，can1接收，如果can1没有接收到程序不会退出
+
+
+其它平台
+canconfig can0 bitrate 50000 ctrlmode triple-sampling on  
+canconfig can0 bitrate 250000 ctrlmode triple-sampling on 配置can0模式
+canconfig can0 start   启动can0
+cansend can0 -i 0x10 0x11 0x22 0x33 0x44 0x55 0x66 0x77 0x88   发送数据
+candump can0  监听can0接收数据
+canconfig can0 stop 关闭can0
+以上命令可以参考

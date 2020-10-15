@@ -1,0 +1,57 @@
+﻿# Write your options here!
+
+# Type of operation encode or decode; encode = 1, decode = 2
+operation=2
+
+# read input from file. Mandatory for decode. If not specified for encode
+# then default is camera
+input=akiyo.mp4
+
+# write output to file. For decode, if not specified, then default is LCD
+output=
+
+# format; 0 - MPEG4, 1 - H.263, 2 - H.264, 3 - VC1, 4 - MPEG2, 5 - DIV3
+# 6 - RV, 7 - MJPG
+format=0
+
+# mp4Class; 0 - MPEG4, 1 - DIVX 5.0 or higher, 2 - XVID, 5 - DIVX 4.0
+mp4Class=
+
+# chromaInterleave, 1 - CbCr is interleaved
+chromaInterleave=
+
+# rotation angle (0, 90, 180, 270). Do not specify anything if not needed.
+# Default is VPU rotation.
+rotation=
+
+# ipu_rot, 1 - Enable IPU rotation and disable VPU rotation when output
+# to LCD for display
+ipu_rot=
+
+# count, number of frames to encode or decode
+count=
+
+# deblocking . 1 - Enable deblock
+deblock=
+
+# dering . 1 - Enable dering
+dering=
+
+# mirroring (0, 1, 2 , 3)
+mirror=
+
+# width, display width for decoding or capture/yuv image width for encoding
+width=
+
+# height, display height for decoding or capture/yuv image height for encoding
+height=
+
+# bitrate. default is auto
+bitrate=
+
+# gop size. default is 0
+gop=
+
+# This option specifies the end of option list for one instance
+# Each option list must be end with this option. This is mandatory.
+end

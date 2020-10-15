@@ -1,0 +1,11 @@
+linux & android:
+uart1
+超级终端有打印信息即证明可用
+
+uart2~5
+将uartX短接，然后使用命令
+hexdump /dev/ttymxc1 &
+echo 0x00 > /dev/ttymxc1
+终端有信息即证明可用
+
+

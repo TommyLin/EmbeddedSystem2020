@@ -1,0 +1,13 @@
+linux:
+#/unit_tests/mxc_vpu_test.out -L "-x 0 -f 2 -w 720 -h 480"
+或：
+#gst-launch-1.0 imxv4l2src device=/dev/videoX ! 'video/x-raw,format=(string)UYVY,width=640,height=480,framerate=(fraction)30/1' ! imxv4l2sink
+
+gst-launch-1.0 imxv4l2src device=/dev/video0 ! 'video/x-raw,format=(string)UYVY,width=640,height=480,framerate=(fraction)30/1' ! imxv4l2sink
+videoX中X的数值为0～15，根据实际情况而定，一般为0
+示例中width=640，height=480为分辨率。天嵌配套ov5640支持的分辨率为 1280*720 720*480 640*480 320*240，如果输>入其他不支持的分辨率如640*481，将不会有显示。
+
+
+
+android:
+打开相机apk
