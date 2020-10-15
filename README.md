@@ -16,7 +16,7 @@
 <pre> Hello World in an embedded system. </pre>
 - [X] 09/24 Lab 1 -- Platform set up
 - [X] 10/08 Lab 1 -- System Development Platforms and Tools
-- [ ] 10/15 Lab 1 -- Embedded Operating Systems
+- [X] 10/15 Lab 1 -- Embedded Operating Systems
 
 ### Lab 2
 - [ ] 10/22 Lab 2-1 -- Boot Loader
