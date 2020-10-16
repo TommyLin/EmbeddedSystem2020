@@ -50,7 +50,6 @@ extern "C"{
 
 #include "soc_check.h"
 #include "v4l2_camera.h"
-#include <linux/mxcfb.h>
 
 #include "lcd.h"
 #include "include/ipu.h"

@@ -21,7 +21,8 @@ extern "C"{
 #include <malloc.h>
 //#include <signal.h>
 
-#include <linux/mxcfb.h>
+//#include <linux/mxcfb.h>
+#include "mxcfb.h"
 
 #define TEST_BUFFER_NUM 3
 struct testbuffer

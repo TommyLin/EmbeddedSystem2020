@@ -49,7 +49,6 @@ extern "C"{
 //#include "mxc_ipudev_test.h"
 
 
-#include <linux/mxcfb.h>
 #include "lcd.h"
 
 #define TFAIL -1

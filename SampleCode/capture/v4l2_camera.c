@@ -130,7 +130,7 @@ static void print_pixelformat(char *prefix, int val)
                                         (val >> 24) & 0xff);
 }
 
-void ctrl_c_handler(int signum, siginfo_t *info, void *myact)
+void ctrl_c_handler(__attribute__((unused)) int signum, __attribute__((unused)) siginfo_t *info, __attribute__((unused)) void *myact)
 {
         v4l2_camera.g_ctrl_c_rev = 1;
         return;
@@ -143,14 +143,7 @@ mxc_v4l_overlay_test(int timeout)
         int overlay = 1;
         int retval = 0;
         struct v4l2_control ctl;
-#ifdef BUILD_FOR_ANDROID
-        char fb_device_0[100] = "/dev/graphics/fb0";
-#else
-        char fb_device_0[100] = "/dev/fb0";
-#endif
         int fd_graphic_fb = 0;
-        struct fb_var_screeninfo fb0_var;
-        struct mxcfb_loc_alpha l_alpha;
 
         if (ioctl(fd_v4l, VIDIOC_OVERLAY, &overlay) < 0) {
                 printf("VIDIOC_OVERLAY start failed\n");
@@ -230,8 +223,6 @@ out2:
                 goto out1;
         }
 out1:
-
-out0:
 
         close(fd_graphic_fb);
         return retval;
@@ -440,7 +431,7 @@ int clip(int value, int min, int max)
 {
     return (value > max ? max : value < min ? min : value);
 }
-int process_image(void *addr,int length,int fwidth,int fheight,struct fb_var_screeninfo fb0_var,struct fb_fix_screeninfo fb0_fix)
+int process_image(void *addr,__attribute__((unused)) int length,int fwidth,int fheight,struct fb_var_screeninfo fb0_var,struct fb_fix_screeninfo fb0_fix)
 {
     unsigned char* in=(char*)addr;
     int width=fwidth;
@@ -560,13 +551,11 @@ main(int argc, char **argv)
 #else
         char fb_device_0[100] = "/dev/fb0";
 #endif
-        char *fb_device_fg;
         int fd_fb_0 = 0;
         struct fb_fix_screeninfo fb0_fix;
         struct fb_var_screeninfo fb0_var;
         struct mxcfb_color_key color_key;
         struct mxcfb_gbl_alpha g_alpha;
-        struct mxcfb_loc_alpha l_alpha;
         int ret = 0;
         struct sigaction act;
         static struct v4l2_dbg_chip_ident v_chip;

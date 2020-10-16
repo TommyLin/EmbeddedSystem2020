@@ -854,6 +854,63 @@ int can_do_stop(const char *name)
 
 /**
  * @ingroup extern
+ * can_get_restart_ms - get the current interval of auto restarting.
+ *
+ * @param name name of the can device. This is the netdev name, as ifconfig -a shows
+ * in your system. usually it contains prefix "can" and the numer of the can
+ * line. e.g. "can0"
+ * @param restart_ms pointer to store the value.
+ *
+ * This one stores the current interval of auto restarting into the given
+ * pointer.
+ *
+ * The socketcan framework can automatically restart a device if it is in
+ * bus_off in a given interval. This function gets this value in milliseconds.
+ * restart_ms == 0 means that autorestarting is turned off.
+ *
+ * @return 0 if success
+ * @return -1 if failed
+ */
+
+int can_get_restart_ms(const char *name, __u32 *restart_ms)
+{
+	return get_link(name, GET_RESTART_MS, restart_ms);
+}
+
+/**
+ * @ingroup extern
+ * can_get_state - get the current state of the device
+ *
+ * @param name name of the can device. This is the netdev name, as ifconfig -a shows
+ * in your system. usually it contains prefix "can" and the numer of the can
+ * line. e.g. "can0"
+ * @param state pointer to store the state
+ *
+ * This one stores the current state of the can interface into the given
+ * pointer. Valid states are:
+ * - CAN_STATE_ERROR_ACTIVE
+ * - CAN_STATE_ERROR_WARNING
+ * - CAN_STATE_ERROR_PASSIVE
+ * - CAN_STATE_BUS_OFF
+ * - CAN_STATE_STOPPED
+ * - CAN_STATE_SLEEPING
+ *
+ * The first four states is determined by the value of RX/TX error counter.
+ * Please see relevant can specification for more information about this. A
+ * device in STATE_STOPPED is an inactive device. STATE_SLEEPING is not
+ * implemented on all devices.
+ *
+ * @return 0 if success
+ * @return -1 if failed
+ */
+
+int can_get_state(const char *name, int *state)
+{
+	return get_link(name, GET_STATE, state);
+}
+
+/**
+ * @ingroup extern
  * can_do_restart - restart the can interface
  * @param name name of the can device. This is the netdev name, as ifconfig -a shows
  * in your system. usually it contains prefix "can" and the numer of the can
@@ -1097,63 +1154,6 @@ int can_set_bitrate_samplepoint(const char *name, __u32 bitrate,
 
 /**
  * @ingroup extern
- * can_get_state - get the current state of the device
- *
- * @param name name of the can device. This is the netdev name, as ifconfig -a shows
- * in your system. usually it contains prefix "can" and the numer of the can
- * line. e.g. "can0"
- * @param state pointer to store the state
- *
- * This one stores the current state of the can interface into the given
- * pointer. Valid states are:
- * - CAN_STATE_ERROR_ACTIVE
- * - CAN_STATE_ERROR_WARNING
- * - CAN_STATE_ERROR_PASSIVE
- * - CAN_STATE_BUS_OFF
- * - CAN_STATE_STOPPED
- * - CAN_STATE_SLEEPING
- *
- * The first four states is determined by the value of RX/TX error counter.
- * Please see relevant can specification for more information about this. A
- * device in STATE_STOPPED is an inactive device. STATE_SLEEPING is not
- * implemented on all devices.
- *
- * @return 0 if success
- * @return -1 if failed
- */
-
-int can_get_state(const char *name, int *state)
-{
-	return get_link(name, GET_STATE, state);
-}
-
-/**
- * @ingroup extern
- * can_get_restart_ms - get the current interval of auto restarting.
- *
- * @param name name of the can device. This is the netdev name, as ifconfig -a shows
- * in your system. usually it contains prefix "can" and the numer of the can
- * line. e.g. "can0"
- * @param restart_ms pointer to store the value.
- *
- * This one stores the current interval of auto restarting into the given
- * pointer.
- *
- * The socketcan framework can automatically restart a device if it is in
- * bus_off in a given interval. This function gets this value in milliseconds.
- * restart_ms == 0 means that autorestarting is turned off.
- *
- * @return 0 if success
- * @return -1 if failed
- */
-
-int can_get_restart_ms(const char *name, __u32 *restart_ms)
-{
-	return get_link(name, GET_RESTART_MS, restart_ms);
-}
-
-/**
- * @ingroup extern
  * can_get_bittiming - get the current bittimnig configuration.
  *
  * @param name name of the can device. This is the netdev name, as ifconfig -a shows
@@ -1301,7 +1301,7 @@ int can_get_device_stats(const char *name, struct can_device_stats *cds)
 	return get_link(name, GET_XSTATS, cds);
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
 	struct can_frame frame;
 	struct can_frame Rx_frame;
@@ -1312,7 +1312,7 @@ int main(int argc, char **argv)
 	int dlc = 8;
 	int s[2], ret, i, rtr = 0, extended = 0;
 	int j;
-	int ret1;
+	uint ret1;
         system("ifconfig can0 down");
         system("ifconfig can1 down");
         can_set_bitrate("can0", 100000);

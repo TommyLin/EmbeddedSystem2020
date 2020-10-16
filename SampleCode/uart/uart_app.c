@@ -118,7 +118,6 @@ switch( nSpeed )
 int open_port(int fd,char *dev)
 {
     //char *dev[]={"/dev/ttyO1","/dev/ttyO2","/dev/ttyO3"};
-    long  vdisable;
    fd = open( dev, O_RDWR|O_NOCTTY); //open("/dev/tttyS0",O_RDWR | O_NOCTTY);  //O_NDELAY
         if (-1 == fd)
         {
@@ -240,11 +239,11 @@ int main(int argc ,char **argv)
 	printf("==================================================\n");
     if((fd=open_port(fd,argv[1]))<0){
         perror("open_port error");
-        return;
+        return 1;
     }
     if((i=set_opt(fd,boudrate,8,'N',1))<0){
         perror("set_opt error");
-        return;
+        return 2;
     }
     while(loop){
 		switch(setmode){
@@ -301,5 +300,5 @@ int main(int argc ,char **argv)
 		msdelay(intervalMS);
 	}
     close(fd);
-    return;
+    return 0;
 }

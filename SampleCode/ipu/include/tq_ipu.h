@@ -104,7 +104,7 @@ typedef struct ipu_devinfo{
 //    /*memcpy(handle->fb_name,"DISP3 BG",sizeof("DISP3 BG"));//全屏覆盖界面的方式 应该是：fb0*/
 //    memcpy(handle->fb_name,"DISP3 FG",sizeof("DISP3 FG"));//具有图层功能，为fb1设备
 
-//    printf("\t input.width: %d,\n input.height: %d,\n input.format: %d,\
+//    printf("\t input.width: %d,\n input.height: %d,\n input.format: %d,
 //           \n output.width: %d,\n output.height: %d,\n output.format: %d r\n",
 //           handle->task.input.width,handle->task.input.height,handle->task.input.format,
 //           handle->task.output.width,handle->task.output.height,handle->task.output.format);

@@ -1,9 +1,9 @@
-#include <stdio.h>  
-#include <fcntl.h>  
-#include <stdlib.h>  
-#include <string.h>  
-#include <linux/i2c-dev.h>  
-#include <errno.h> 
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include <linux/i2c-dev.h>
+#include <errno.h>
 #include <linux/i2c.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -22,9 +22,9 @@ int i2c_read(int fd, unsigned short reg, unsigned char *rbuf, int len){
 	struct i2c_rdwr_ioctl_data i2c_data;
 	struct i2c_msg msgs[2];
 	int ret = 0;
-	
+
 	i2c_data.nmsgs = 2;
-	i2c_data.msgs = msgs;	
+	i2c_data.msgs = msgs;
 	unsigned char tbuf[] = {
 		reg >> 8,
 		reg & 0xff,
@@ -44,7 +44,7 @@ int i2c_read(int fd, unsigned short reg, unsigned char *rbuf, int len){
 		perror("ioctl");
 		return ret;
 	}
-		
+
 	return 0;
 }
 
@@ -52,11 +52,11 @@ int i2c_write(int fd, unsigned char *tbuf, int len){
 	struct i2c_rdwr_ioctl_data i2c_data;
 	struct i2c_msg msgs;
 	int ret = 0;
-	
+
 	i2c_data.nmsgs = 1;
 	i2c_data.msgs = &msgs;
-		
-	msgs.flags = 0;	//写标志 
+
+	msgs.flags = 0;	//写标志
 	msgs.addr  = DEVICE_I2C_ADDR;	//设备i2c地址
 	msgs.len   = len;		//i2c发送数据包的字节数，也就是msgs.buf的大小
 	msgs.buf   = tbuf;		//i2c要发送的数据包
@@ -66,15 +66,15 @@ int i2c_write(int fd, unsigned char *tbuf, int len){
 		perror("ioctl");
 		return ret;
 	}
-	
+
 	return 0;
 }
 
 int main (int argc, char **argv){
-	
+
 	int fd = -1;
 	int ret = 0;
-	
+
 	if ((fd = open(DEVICE,O_RDWR))< 0) {
 		/* 错误处理 */
 		perror("open");
@@ -84,25 +84,25 @@ int main (int argc, char **argv){
 	ioctl(fd, I2C_SLAVE, (unsigned long)DEVICE_I2C_ADDR);  /*配置slave地址*/
 	ioctl(fd, I2C_TIMEOUT, 10);  /*配置超时时间*/
 	ioctl(fd, I2C_RETRIES, 2);    /*配置重试次数*/
-	
-//写入数据到指定寄存器	
+
+//写入数据到指定寄存器
 	unsigned char tbuf[] = {	//i2c要发送的数据，
 		REG >> 8,			//第1或2字节是寄存器地址，16位寄存器使用2字节,8位寄存器使用1字节
 		REG & 0xff,
 		0x66,				//要写入的数据
-	};	
-	
+	};
+
 	ret = i2c_write(fd, tbuf, sizeof(tbuf));
 	if (ret != 0)
 		printf("i2c_write failed\n");
 	printf("write data seccess, write to reg %hx, value = %#x \n", REG, tbuf[2]);
 
-//从指定寄存器读取数据	
+//从指定寄存器读取数据
 	unsigned char rbuf;	//接收数据buf
-	ret =i2c_read(fd, REG, &rbuf, 1); //从REG中读取1字节数据，存放在rbuf中  
+	ret =i2c_read(fd, REG, &rbuf, 1); //从REG中读取1字节数据，存放在rbuf中 
 	if(ret< 0)
 		printf("read data failed\n");
-	else 
+	else
 		printf("read data success, read from register %hx, value is %#x \n", REG, rbuf);
 
 	close(fd);

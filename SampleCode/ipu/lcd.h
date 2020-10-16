@@ -21,7 +21,7 @@ extern "C"{
 #include <malloc.h>
 //#include <signal.h>
 
-#include <linux/mxcfb.h>
+#include "mxcfb.h"
 extern int fb_dbg_level;
 
 #define FB_DPRINTF(level,fmt,arg...) if(fb_dbg_level >= level)\
