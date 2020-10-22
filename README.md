@@ -19,7 +19,7 @@
 - [X] 10/15 Lab 1 -- Embedded Operating Systems
 
 ### Lab 2
-- [ ] 10/22 Lab 2-1 -- Boot Loader
+- [X] 10/22 Lab 2-1 -- Boot Loader
 - [ ] 10/29 Lab 2-1 -- Linux I/O
 - [ ] 11/05 Lab 2-1 -- Midterm - No class???
 - [ ] 11/12 Lab 2-2 -- Lab II – I/O
