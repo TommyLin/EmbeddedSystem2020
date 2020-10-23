@@ -63,15 +63,17 @@ struct framebuffer_info get_framebuffer_info(const char *framebuffer_device_path
 
     // open device with linux system call "open()"
     // https://man7.org/linux/man-pages/man2/open.2.html
+    int fd = open(framebuffer_device_path, O_RDWR);
 
     // get attributes of the framebuffer device thorugh linux system call "ioctl()".
     // the command you would need is "FBIOGET_VSCREENINFO"
     // https://man7.org/linux/man-pages/man2/ioctl.2.html
     // https://www.kernel.org/doc/Documentation/fb/api.txt
+    ioctl(fd, FBIOGET_VSCREENINFO, &screen_info);
 
     // put the required attributes in variable "fb_info" you found with "ioctl() and return it."
-    // fb_info.xres_virtual =       // 8
-    // fb_info.bits_per_pixel =     // 16
+    fb_info.xres_virtual = screen_info.xres_virtual;
+    fb_info.bits_per_pixel = screen_info.bits_per_pixel;
 
     return fb_info;
 };
