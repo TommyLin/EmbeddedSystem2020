@@ -53,10 +53,10 @@ Answer:
 
 Answer:
 
-`sudo cat /dev/fb0 > fb0` 擷取frame buffer的資料，放到檔案fb0中</br>
-`sudo cat fb0 > /dev/fb0` 將檔案fb0的資料，放進frame buffer中
+`sudo cat /dev/fb0 > fb0` 擷取framebuffer的資料，放到檔案fb0中</br>
+`sudo cat fb0 > /dev/fb0` 將檔案fb0的資料，放進framebuffer中
 
-Frame buffer格式輸出為raw data format，可使用以下命令轉換格式：
+Framebuffer格式輸出為raw data format，可使用以下命令轉換格式：
 
 `$ sudo apt install libnetpbm10`</br>
 `$ perl iraw2png <screen.raw >screen.png`
@@ -65,6 +65,11 @@ Frame buffer格式輸出為raw data format，可使用以下命令轉換格式�
 
 Answer:
 
+`/dev/fb0` main framebuffer</br>
+`/dev/fb1` auxiliary framebuffer</br>
+
+Activate auxiliary framebuffer (`/dev/fb1`)</br>
+`$ echo 0 > /sys/class/graphics/fb1/blank`
 
 ## References:
 1. [Introduction to Framebuffer](https://www.slideshare.net/raspberrypi-tw/introduction-to-framebuffer)
