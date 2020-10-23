@@ -74,3 +74,4 @@ Activate auxiliary framebuffer (`/dev/fb1`)</br>
 ## References:
 1. [Introduction to Framebuffer](https://www.slideshare.net/raspberrypi-tw/introduction-to-framebuffer)
 2. [I.MX6 Framebuffer Overlay](http://www.armadeus.org/wiki/index.php?title=I.MX6_Framebuffer_Overlay)
+3. [[OpenCV] Image file reading and writing](https://docs.opencv.org/3.4.7/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56)
