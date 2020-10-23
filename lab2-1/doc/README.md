@@ -51,11 +51,21 @@ Answer:
 `sudo cat /dev/fb0 > fb0`</br>
 `sudo cat fb0 > /dev/fb0`
 
-Answer: 以下待測試
+Answer:
 
 `sudo cat /dev/fb0 > fb0` 擷取frame buffer的資料，放到檔案fb0中</br>
 `sudo cat fb0 > /dev/fb0` 將檔案fb0的資料，放進frame buffer中
 
+Frame buffer格式輸出為raw data format，可使用以下命令轉換格式：
+
+`$ sudo apt install libnetpbm10`</br>
+`$ perl iraw2png <screen.raw >screen.png`
+
 #### 5.7 You can find there is a file named fb1 under /dev directory. What is the difference between /dev/fb0 and /dev/fb1? Why we use /dev/fb0 rather than /dev/fb1?
 
 Answer:
+
+
+## References:
+1. [Introduction to Framebuffer](https://www.slideshare.net/raspberrypi-tw/introduction-to-framebuffer)
+2. [I.MX6 Framebuffer Overlay](http://www.armadeus.org/wiki/index.php?title=I.MX6_Framebuffer_Overlay)
