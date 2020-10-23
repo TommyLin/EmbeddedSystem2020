@@ -1,6 +1,7 @@
 ## 特別注意事項:
 1. Checked the “Advanced” option, so that you can find all options.
-2. CMAKE_EXE_LINKER_FLAGS ```-lpthread -ldl -lrt -Wl,-rpath-link=/opt/EmbedSky/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/qt5.5/rootfs_imx6q_V3_qt5.5_env/qt5.5_env/lib -Wl,-rpath-link=/opt/EmbedSky/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/qt5.5/rootfs_imx6q_V3_qt5.5_env/usr/lib -Wl,-rpath-link=/opt/EmbedSky/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/qt5.5/rootfs_imx6q_V3_qt5.5_env/lib```
+2. CMAKE_EXE_LINKER_FLAGS
+> -lpthread -ldl -lrt ***-Wl,-rpath-link***=/opt/EmbedSky/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/qt5.5/rootfs_imx6q_V3_qt5.5_env/qt5.5_env/lib ***-Wl,-rpath-link***=/opt/EmbedSky/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/qt5.5/rootfs_imx6q_V3_qt5.5_env/usr/lib ***-Wl,-rpath-link***=/opt/EmbedSky/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/qt5.5/rootfs_imx6q_V3_qt5.5_env/lib
 3. If you want to do 4.2.4.4 again, open cmake-gui. File -> Delete Cache, then "Configure"
 
 
@@ -16,17 +17,19 @@ Answer: 請自行參考Wiki資料如下
 
 #### 5.2 Why there are so many arguments in the compilation command(step 4.4.2)? What are they for?
 
-Answer: compile options
+Answer:
 
-`-I` Setting header file search paths for compiler
+Compile options:
+> `-I` Setting header file search paths for compiler</br>
+> `-L` Setting library search paths for compiler</br>
 
-`-L` Setting library search paths for compiler
+Linker options:
+> `-l` Link library for linker, e.g. `-lpthread -lopencv_world`</br>
+> `-Wl` Following option is used for linker **NOT** for compiler</br>
+> `-rpath-link` Linked library search paths for linker</br>
+> `-rpath` Seting library search paths at runtime
 
-`-l` Link library for linker, e.g. `-lpthread -lopencv_world`
-
-`-Wl` Following option is used for linker not compiler
-
-`-rpath-link` Linked library search paths for linker
+[動態庫的鏈接和鏈接選項-L，-rpath-link，-rpath](https://www.cntofu.com/book/46/linux_system/1515.md)
 
 #### 5.3 What is `libopencv_world.so.3.4.7` for? Why do we need to use `LD_LIBRARY_PATH=. ./demo` to run the executable? What would happen if we just run with `./demo`? Why?
 
