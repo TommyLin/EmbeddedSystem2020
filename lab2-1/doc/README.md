@@ -55,8 +55,7 @@ sudo cat fb0 > /dev/fb0
 
 Answer: 以下待測試
 
-`sudo cat /dev/fb0 > fb0` 擷取frame buffer的資料，放到檔案fb0中
-
+`sudo cat /dev/fb0 > fb0` 擷取frame buffer的資料，放到檔案fb0中</br>
 `sudo cat fb0 > /dev/fb0` 將檔案fb0的資料，放進frame buffer中
 
 #### 5.7 You can find there is a file named fb1 under /dev directory. What is the difference between /dev/fb0 and /dev/fb1? Why we use /dev/fb0 rather than /dev/fb1?
