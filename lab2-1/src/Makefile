@@ -20,6 +20,7 @@ CFLAGS = -I $(LINARO_ARM)/include/ \
 		 -Wl,-rpath-link=$(QT5_ROOTFS)/qt5.5_env/lib/ \
 		 -Wl,-rpath-link=$(QT5_ROOTFS)/usr/lib/ \
 		 -lpthread -lopencv_world
+		 -rpath=.
 
 
 demo: source.cpp
