@@ -1,3 +1,5 @@
+# Lab2-1
+
 ## 特別注意事項:
 1. Checked the “Advanced” option, so that you can find all options.
 2. CMAKE_EXE_LINKER_FLAGS
@@ -5,7 +7,7 @@
 3. If you want to do 4.2.4.4 again, open cmake-gui. File -> Delete Cache, then "Configure"
 
 
-## Lab2-1 5. Questions and Answers:
+## 5. Questions and Answers:
 #### 5.1 What are the `cmake` and `make` for? What is the relationship between them?
 Answer: 請自行參考Wiki資料如下
     
