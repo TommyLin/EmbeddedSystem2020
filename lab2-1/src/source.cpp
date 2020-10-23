@@ -1,8 +1,9 @@
-#include <fcntl.h> 
+#include <fcntl.h>
 #include <fstream>
 #include <linux/fb.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include <sys/ioctl.h>
 
 struct framebuffer_info
@@ -15,23 +16,24 @@ struct framebuffer_info get_framebuffer_info(const char *framebuffer_device_path
 
 int main(int argc, const char *argv[])
 {
-    cv::Mat image;
+    cv::Mat image, bgr565;
     cv::Size2f image_size;
-    
+
     framebuffer_info fb_info = get_framebuffer_info("/dev/fb0");
     std::ofstream ofs("/dev/fb0");
 
     // read image file (sample.bmp) from opencv libs.
     // https://docs.opencv.org/3.4.7/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56
-    // image = .......
+    image = cv::imread("sample.bmp", cv::IMREAD_GRAYSCALE);
 
     // get image size of the image.
     // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a146f8e8dda07d1365a575ab83d9828d1
-    // image_size = ......
+    image_size = image.size();
 
     // transfer color space from BGR to BGR565 (16-bit image) to fit the requirement of the LCD
     // https://docs.opencv.org/3.4.7/d8/d01/group__imgproc__color__conversions.html#ga397ae87e1288a81d2363b61574eb8cab
     // https://docs.opencv.org/3.4.7/d8/d01/group__imgproc__color__conversions.html#ga4e0972be5de079fed4e3a10e24ef5ef0
+    cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
 
     // output to framebufer row by row
     for (int y = 0; y < image_size.height; y++)
@@ -39,12 +41,16 @@ int main(int argc, const char *argv[])
         // move to the next written position of output device framebuffer by "std::ostream::seekp()".
         // posisiotn can be calcluated by "y", "fb_info.xres_virtual", and "fb_info.bits_per_pixel".
         // http://www.cplusplus.com/reference/ostream/ostream/seekp/
+        // framebuffer width = fb_info.xres_virtual
+        // fb_info.bits_per_pixel should be 16 (BGR565)
+        ofs.seekp(y * fb_info.xres_virtual * 2);
 
         // write to the framebuffer by "std::ostream::write()".
         // you could use "cv::Mat::ptr()" to get the pointer of the corresponding row.
         // you also have to count how many bytes to write to the buffer
         // http://www.cplusplus.com/reference/ostream/ostream/write/
         // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a13acd320291229615ef15f96ff1ff738
+        ofs.write(reinterpret_cast<char*>(bgr565.ptr(y)), image_size.width * 2);
     }
 
     return 0;
