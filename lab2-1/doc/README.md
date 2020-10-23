@@ -36,6 +36,10 @@ Linker options:
 #### 5.3 What is `libopencv_world.so.3.4.7` for? Why do we need to use `LD_LIBRARY_PATH=. ./demo` to run the executable? What would happen if we just run with `./demo`? Why?
 
 Answer: `libopencv_world.so.3.4.7` is runtime library required for application. `LD_LIBRARY_PATH=.` assign the search path of runtime library to current directory. Demo will complain about library not found if we just run with `./demo`.
+```
+./demo: error while loading shared libraries: libopencv_world.so.3.4: cannot open shared object file: No such file or directory
+```
+This can be solved by compiler option: `-Wl,rpath=.`. This option assign runtime library search path to current directory.
 
 #### 5.4 It is so complex and difficult to show a picture by using the framebuffer. Why don’t we just use cv::imshow to do this work?
 
