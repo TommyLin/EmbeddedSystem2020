@@ -24,7 +24,7 @@ int main(int argc, const char *argv[])
 
     // read image file (sample.bmp) from opencv libs.
     // https://docs.opencv.org/3.4.7/d4/da8/group__imgcodecs.html#ga288b8b3da0892bd651fce07b3bbd3a56
-    image = cv::imread("sample.bmp", cv::IMREAD_GRAYSCALE);
+    image = cv::imread("sample.bmp");
 
     // get image size of the image.
     // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a146f8e8dda07d1365a575ab83d9828d1

@@ -1,8 +1,8 @@
 
-LINARO_ARM = /opt/EmbedSky/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf/
-QT5_ROOTFS = $(LINARO_ARM)/qt5.5/rootfs_imx6q_V3_qt5.5_env/
-OPENCV_SRC = ~/embedded/opencv-3.4.7/modules/
-OPENCV_ARM = /usr/local/arm-opencv/
+LINARO_ARM = /opt/EmbedSky/gcc-linaro-5.3-2016.02-x86_64_arm-linux-gnueabihf
+QT5_ROOTFS = $(LINARO_ARM)/qt5.5/rootfs_imx6q_V3_qt5.5_env
+OPENCV_SRC = ~/embedded/opencv-3.4.7/modules
+OPENCV_ARM = /usr/local/arm-opencv
 
 CC = arm-linux-gnueabihf-g++
 CFLAGS = -I $(LINARO_ARM)/include/ \
@@ -19,9 +19,8 @@ CFLAGS = -I $(LINARO_ARM)/include/ \
 		 -Wl,-rpath-link=$(QT5_ROOTFS)/lib/ \
 		 -Wl,-rpath-link=$(QT5_ROOTFS)/qt5.5_env/lib/ \
 		 -Wl,-rpath-link=$(QT5_ROOTFS)/usr/lib/ \
+		 -Wl,-rpath=. \
 		 -lpthread -lopencv_world
-		 -rpath=.
-#		 -Wl,-rpath=.
 
 
 demo: source.cpp
