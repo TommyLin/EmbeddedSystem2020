@@ -48,10 +48,8 @@ Answer:
 [What is Frame Buffer](https://ecomputernotes.com/computer-graphics/basic-of-computer-graphics/what-is-frame-buffer)
 
 #### 5.6 What is the result of the command below? Why?
-```
-sudo cat /dev/fb0 > fb0
-sudo cat fb0 > /dev/fb0
-```
+`sudo cat /dev/fb0 > fb0`</br>
+`sudo cat fb0 > /dev/fb0`
 
 Answer: 以下待測試
 
