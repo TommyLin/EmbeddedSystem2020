@@ -28,4 +28,4 @@ demo: source.cpp
 
 .PHONY: clean
 clean:
-	rm demo
+	rm -rf demo
