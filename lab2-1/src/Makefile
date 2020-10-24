@@ -22,10 +22,16 @@ CFLAGS = -I $(LINARO_ARM)/include/ \
 		 -Wl,-rpath=. \
 		 -lpthread -lopencv_world
 
+default: all
+
+all: demo bonus
 
 demo: source.cpp
 	$(CC) $(CFLAGS) $? -o $@
 
+bonus: bonus.cpp
+	$(CC) $(CFLAGS) $? -o $@
+
 .PHONY: clean
 clean:
-	rm -rf demo
+	rm -rf demo bonus
