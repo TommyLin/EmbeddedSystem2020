@@ -9,7 +9,7 @@
 
 ## 5. Questions and Answers:
 #### 5.1 What are the `cmake` and `make` for? What is the relationship between them?
-Answer: 請自行參考Wiki資料如下
+Answer: 參考Wiki資料如下
     
 #### [cmake](https://zh.wikipedia.org/wiki/CMake)
 > CMake是個一個開源的跨平台自動化建構系統，用來管理軟體建置的程式，並不依賴於某特定編譯器，並可支援多層目錄、多個應用程式與多個函式庫。 它用組態檔控制建構過程（build process）的方式和Unix的make相似，只是CMake的組態檔取名為***CMakeLists.txt***。
@@ -39,13 +39,21 @@ Answer: `libopencv_world.so.3.4.7` is runtime library required for application. 
 ```
 ./demo: error while loading shared libraries: libopencv_world.so.3.4: cannot open shared object file: No such file or directory
 ```
-This can be solved by compiler option: `-Wl,rpath=.`. This option assign runtime library search path to current directory.
+This can be solved by add compiler option: `-Wl,rpath=.`. This option assign runtime library search path to current directory with application.
 
-#### 5.4 It is so complex and difficult to show a picture by using the framebuffer. Why don’t we just use cv::imshow to do this work?
+Improvement:
+1. Create library folder on target board. e.g. `/usr/local/opencv/lib`
+2. Copy `libopencv_world.so.3.4` to `/usr/local/opencv/lib`
+3. Compile application with `-Wl,rpath=/usr/local/opencv/lib`
 
-Answer: 參考資料，待測試
+Then applicaion can run anywhere and refer runtime library with assigned path.
 
-[Python 與 OpenCV 基本讀取、顯示與儲存圖片教學](https://blog.gtwang.org/programming/opencv-basic-image-read-and-write-tutorial/)
+#### 5.4 It is so complex and difficult to show a picture by using the framebuffer. Why don’t we just use [cv::imshow](https://docs.opencv.org/3.4.7/d7/dfc/group__highgui.html#ga453d42fe4cb60e5723281a89973ee563) to do this work?
+
+Answer: [cv::imshow](https://docs.opencv.org/3.4.7/d7/dfc/group__highgui.html#ga453d42fe4cb60e5723281a89973ee563) need window manager to display image in a "window".
+
+以下是[cv::imshow](https://docs.opencv.org/3.4.7/d7/dfc/group__highgui.html#ga453d42fe4cb60e5723281a89973ee563)使用參考資料：</br>
+* [Python 與 OpenCV 基本讀取、顯示與儲存圖片教學](https://blog.gtwang.org/programming/opencv-basic-image-read-and-write-tutorial/)
 
 #### 5.5 What is a framebuffer?
 
