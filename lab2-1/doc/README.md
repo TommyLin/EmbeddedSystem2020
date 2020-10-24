@@ -77,6 +77,29 @@ Answer:
 Activate auxiliary framebuffer (`/dev/fb1`)</br>
 `$ echo 0 > /sys/class/graphics/fb1/blank`
 
+## 6. Bonus:
+#### Show bonus.png on the screen. It is ok to modify either your code or configurations above. However, the provided picture is not allowed to be modified. Board is not allowed to connect to the Internet also.
+
+Follow steps described in document "109_lab_2-1.pdf".</br>
+`$ cd opencv-3.4.7`</br>
+`$ sudo cmake-gui` Step: 4.1.2, This command must start from opencv-3.4.7 source directory.
+
+Search "PNG" and check following options.</br>
+`BUILD_PNG`</br>
+`WITH_PNG`
+
+Click "Configure"
+
+Click ""Generate"
+
+`cd /usr/local/arm-opencv/build`</br>
+`sudo make`</br>
+`sudo make install`</br>
+
+Copy `/usr/local/arm-opencv/install/lib/libopencv_world.so.3.4.7` to your target board and rename library to `libopencv_world.so.3.4`.
+
+Run your program then get bonus point!!!
+
 ## References:
 1. [Introduction to Framebuffer](https://www.slideshare.net/raspberrypi-tw/introduction-to-framebuffer)
 2. [I.MX6 Framebuffer Overlay](http://www.armadeus.org/wiki/index.php?title=I.MX6_Framebuffer_Overlay)
