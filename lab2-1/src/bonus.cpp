@@ -43,7 +43,7 @@ int main(int argc, const char *argv[])
         // http://www.cplusplus.com/reference/ostream/ostream/seekp/
         // framebuffer width = fb_info.xres_virtual
         // fb_info.bits_per_pixel should be 16 (BGR565)
-        ofs.seekp((y * fb_info.xres_virtual + 480) * 2);
+        ofs.seekp((y * fb_info.xres_virtual) * 2);
 
         // write to the framebuffer by "std::ostream::write()".
         // you could use "cv::Mat::ptr()" to get the pointer of the corresponding row.
