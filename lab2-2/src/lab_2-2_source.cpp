@@ -108,8 +108,6 @@ struct framebuffer_info get_framebuffer_info ( const char *framebuffer_device_pa
     ioctl(fd, FBIOGET_VSCREENINFO, &screen_info);
 
     // put the required attributes in variable "fb_info" you found with "ioctl() and return it."
-    // fb_info.xres_virtual = ......
-    // fb_info.bits_per_pixel = ......
     fb_info.xres_virtual = screen_info.xres_virtual;
     fb_info.yres_virtual = screen_info.yres_virtual;
     fb_info.bits_per_pixel = screen_info.bits_per_pixel;
