@@ -21,7 +21,7 @@
 ### Lab 2
 - [X] 10/22 Lab 2-1 -- Boot Loader
 - [X] 10/29 Lab 2-1 -- Linux I/O
-- [ ] 11/05 Lab 2-1 -- Midterm - No class???
+- [X] 11/05 Lab 2-1 -- ~~Midterm - No class~~
 - [ ] 11/12 Lab 2-2 -- Lab II – I/O
 - [ ] 11/19 Lab 2-2 -- SOC concepts and embedded processors
 - [ ] 11/26 Lab 2-3 -- Device Drivers
