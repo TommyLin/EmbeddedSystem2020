@@ -20,6 +20,7 @@ int main ( int argc, const char *argv[] )
     // variable to store the frame get from video stream
     cv::Mat frame, bgr565;
     cv::Size2f frame_size;
+    int w, h;
 
     // open video stream device
     // https://docs.opencv.org/3.4.7/d8/dfe/classcv_1_1VideoCapture.html#a5d5f5dacb77bbebdcbfb341e3d4355c1
@@ -45,6 +46,11 @@ int main ( int argc, const char *argv[] )
     // https://docs.opencv.org/3.4.7/d4/d15/group__videoio__flags__base.html#gaeb8dd9c89c10a5c63c139bf7c4f5704d
     camera.set(2, cv::CAP_ANY);
 
+    // Prepare display image size
+    camera.read(frame);
+    w = fb_info.xres_virtual * frame.size().height / frame.size().width;
+    h = fb_info.yres_virtual;
+
     while ( true )
     {
         // get video frame from stream
@@ -54,7 +60,7 @@ int main ( int argc, const char *argv[] )
 
         // get size of the video frame
         // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a146f8e8dda07d1365a575ab83d9828d1
-        cv::resize(frame, frame, cv::Size(fb_info.xres_virtual * frame.size().height / frame.size().width, fb_info.yres_virtual), (0, 0), (0, 0), cv::INTER_LINEAR);
+        cv::resize(frame, frame, cv::Size(w, h), (0, 0), (0, 0), cv::INTER_LINEAR);
         frame_size = frame.size();
 
         // transfer color space from BGR to BGR565 (16-bit image) to fit the requirement of the LCD
@@ -69,7 +75,8 @@ int main ( int argc, const char *argv[] )
             // http://www.cplusplus.com/reference/ostream/ostream/seekp/
 
             // write to the framebuffer by "std::ostream::write()"
-            ofs.seekp(y * fb_info.xres_virtual * (fb_info.bits_per_pixel / 8));
+            ofs.seekp((y * fb_info.xres_virtual + (fb_info.xres_virtual - w) / 2)
+                    * (fb_info.bits_per_pixel / 8));
 
             // you also need to cacluate how many bytes required to write to the buffer
             // http://www.cplusplus.com/reference/ostream/ostream/write/
