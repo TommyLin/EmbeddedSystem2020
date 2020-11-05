@@ -25,12 +25,10 @@ int main ( int argc, const char *argv[] )
     cv::VideoCapture camera ( 2 );
 
     // get info of the framebuffer
-    // fb_info = ......
     framebuffer_info fb_info = get_framebuffer_info("/dev/fb0");
 
     // open the framebuffer device
     // http://www.cplusplus.com/reference/fstream/ofstream/ofstream/
-    // ofs = ......
     std::ofstream ofs("/dev/fb0");
 
     // check if video stream device is opened success or not
