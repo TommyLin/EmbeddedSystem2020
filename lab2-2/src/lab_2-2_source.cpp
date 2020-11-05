@@ -10,6 +10,7 @@ struct framebuffer_info
 {
     uint32_t bits_per_pixel;    // depth of framebuffer
     uint32_t xres_virtual;      // how many pixel in a row in virtual screen
+    uint32_t yres_virtual;      // how many pixel in a col in virtual screen
 };
 
 struct framebuffer_info get_framebuffer_info ( const char *framebuffer_device_path );
@@ -53,6 +54,7 @@ int main ( int argc, const char *argv[] )
 
         // get size of the video frame
         // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a146f8e8dda07d1365a575ab83d9828d1
+        cv::resize(frame, frame, cv::Size(fb_info.xres_virtual * frame.size().height / frame.size().width, fb_info.yres_virtual), (0, 0), (0, 0), cv::INTER_LINEAR);
         frame_size = frame.size();
 
         // transfer color space from BGR to BGR565 (16-bit image) to fit the requirement of the LCD
@@ -102,6 +104,7 @@ struct framebuffer_info get_framebuffer_info ( const char *framebuffer_device_pa
     // fb_info.xres_virtual = ......
     // fb_info.bits_per_pixel = ......
     fb_info.xres_virtual = screen_info.xres_virtual;
+    fb_info.yres_virtual = screen_info.yres_virtual;
     fb_info.bits_per_pixel = screen_info.bits_per_pixel;
 
     return fb_info;
