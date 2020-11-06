@@ -86,11 +86,11 @@ int main ( int argc, const char *argv[] )
         {
             // move to the next written position of output device framebuffer by "std::ostream::seekp()"
             // http://www.cplusplus.com/reference/ostream/ostream/seekp/
-
-            // write to the framebuffer by "std::ostream::write()"
             ofs.seekp((y * fb_info.xres_virtual + (fb_info.xres_virtual - w) / 2)
                     * (fb_info.bits_per_pixel / 8));
 
+            // write to the framebuffer by "std::ostream::write()"
+            // you could use "cv::Mat::ptr()" to get the pointer of the corresponding row.
             // you also need to cacluate how many bytes required to write to the buffer
             // http://www.cplusplus.com/reference/ostream/ostream/write/
             // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a13acd320291229615ef15f96ff1ff738
