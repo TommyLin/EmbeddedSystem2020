@@ -12,17 +12,17 @@
 * Board: 19, 25
 
 ## Schedule of the lab:
-### [Lab 1](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab1/doc/109_lab_1.pdf)
+### Lab 1
 <pre> Hello World in an embedded system. </pre>
-- [X] 09/24 Lab 1 -- Platform set up
+- [X] 09/24 [Lab 1](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab1/doc/109_lab_1.pdf) -- Platform set up
 - [X] 10/08 Lab 1 -- System Development Platforms and Tools
 - [X] 10/15 Lab 1 -- Embedded Operating Systems
 
 ### Lab 2
-- [X] 10/22 Lab 2-1 -- Boot Loader
+- [X] 10/22 [Lab 2-1](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab2-1/doc/109_lab_2-1.pdf) -- Boot Loader
 - [X] 10/29 Lab 2-1 -- Linux I/O
 - [X] 11/05 Lab 2-1 -- ~~Midterm - No class~~
-- [ ] 11/12 Lab 2-2 -- Lab II – I/O
+- [ ] 11/12 [Lab 2-2](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab2-2/doc/109_lab_2-2.pdf) -- Lab II – I/O
 - [ ] 11/19 Lab 2-2 -- SOC concepts and embedded processors
 - [ ] 11/26 Lab 2-3 -- Device Drivers
 
