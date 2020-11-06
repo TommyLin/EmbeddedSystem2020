@@ -16,9 +16,9 @@ CFLAGS = -I $(LINARO_ARM)/include/ \
 		 -I $(OPENCV_SRC)/imgproc/include/ \
 		 -I $(OPENCV_SRC)/videoio/include/ \
 		 -I $(OPENCV_ARM)/build/ \
-		 -I /usr/local/arm-opencv/install/include/ \
+		 -I $(OPENCV_ARM)/install/include/ \
 		 -L $(OPENCV_ARM)/build/lib \
-		 -L /usr/local/arm-opencv/install/lib/ \
+		 -L $(OPENCV_ARM)/install/lib/ \
 		 -Wl,-rpath-link=$(LINARO_ARM)/arm-linux-gnueabihf/libc/lib/ \
 		 -Wl,-rpath-link=$(QT5_ROOTFS)/lib/ \
 		 -Wl,-rpath-link=$(QT5_ROOTFS)/qt5.5_env/lib/ \
