@@ -26,9 +26,9 @@ CFLAGS = -I $(LINARO_ARM)/include/ \
 
 default: all
 
-all: demo bonus
+all: sample bonus
 
-demo: source.cpp
+sample: source.cpp
 	$(CC) $(CFLAGS) $? -o $@
 
 bonus: bonus.cpp
@@ -36,4 +36,4 @@ bonus: bonus.cpp
 
 .PHONY: clean
 clean:
-	rm -rf demo bonus
+	rm -rf sample bonus
