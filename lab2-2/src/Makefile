@@ -20,11 +20,14 @@ CFLAGS = -I $(LINARO_ARM)/include/ \
 
 default: all
 
-all: lab22demo
+all: lab22demo capture
 
 lab22demo: lab_2-2_source.cpp
 	$(CC) $(CFLAGS) $? -o $@
 
+capture: capture.cpp
+	$(CC) $(CFLAGS) $? -o $@
+
 .PHONY: clean
 clean:
-	rm -rf lab22demo
+	rm -rf lab22demo capture
