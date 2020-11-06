@@ -21,6 +21,12 @@ int main ( int argc, const char *argv[] )
     cv::Mat frame, bgr565;
     cv::Size2f frame_size;
     int w, h;
+    int index = 0;
+    char buff[16];
+    std::vector<int> compression_params;
+
+    compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
+    compression_params.push_back(9);
 
     // open video stream device
     // https://docs.opencv.org/3.4.7/d8/dfe/classcv_1_1VideoCapture.html#a5d5f5dacb77bbebdcbfb341e3d4355c1
@@ -57,6 +63,13 @@ int main ( int argc, const char *argv[] )
         // https://docs.opencv.org/3.4.7/d8/dfe/classcv_1_1VideoCapture.html#a473055e77dd7faa4d26d686226b292c1
         // https://docs.opencv.org/3.4.7/d8/dfe/classcv_1_1VideoCapture.html#a199844fb74226a28b3ce3a39d1ff6765
         camera.read(frame);
+
+        // Write frame to file
+        if (index < 10) {
+            snprintf(buff, sizeof(buff), "file-%04d.png", index);
+            cv::imwrite(buff, frame, compression_params);
+        }
+        index++;
 
         // get size of the video frame
         // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a146f8e8dda07d1365a575ab83d9828d1
