@@ -6,7 +6,8 @@ ifndef OPENCV_ARM
 endif
 
 CC = arm-linux-gnueabihf-g++
-CFLAGS = -I $(LINARO_ARM)/include/ \
+CFLAGS = -std=c++11 \
+		 -I $(LINARO_ARM)/include/ \
 		 -I $(OPENCV_ARM)/install/include/ \
 		 -L $(OPENCV_ARM)/install/lib/ \
 		 -Wl,-rpath-link=$(LINARO_ARM)/arm-linux-gnueabihf/libc/lib/ \

@@ -1,12 +1,17 @@
 #include <fcntl.h>
 #include <fstream>
 #include <iostream>
+#include <thread>
 #include <linux/fb.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <sys/ioctl.h>
 
 using namespace std;
+
+bool running = false;
+vector<int> compression_params;
+char buff[16];
 
 struct framebuffer_info
 {
@@ -17,15 +22,25 @@ struct framebuffer_info
 
 struct framebuffer_info get_framebuffer_info ( const char *framebuffer_device_path );
 
+void dump(int index, cv::Mat frame)
+{
+    if ((index > 0) && (index < 999)) {
+        snprintf(buff, sizeof(buff), "file-%03d.png", index);
+        cv::imwrite(buff, frame, compression_params);
+    }
+
+    running = false;
+}
+
+
 int main ( int argc, const char *argv[] )
 {
     // variable to store the frame get from video stream
     cv::Mat frame, bgr565;
     cv::Size2f frame_size;
     int w, h;
-    int index = 0;
-    char buff[16];
-    vector<int> compression_params;
+    int index = 1;
+    thread m_thread;
 
     compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
     compression_params.push_back(9);
@@ -51,6 +66,7 @@ int main ( int argc, const char *argv[] )
 
     // Prepare display image size
     camera.read(frame);
+    m_thread = thread(dump, 0, frame);
     w = fb_info.xres_virtual * frame.size().height / frame.size().width;
     h = fb_info.yres_virtual;
 
@@ -60,14 +76,16 @@ int main ( int argc, const char *argv[] )
         camera.read(frame);
 
         // Write frame to file
-        if (index < 3) {
-            snprintf(buff, sizeof(buff), "file-%04d.png", index);
-            cv::imwrite(buff, frame, compression_params);
+        if (index < 10) {
+            if (!running) {
+                running = true;
+                m_thread.join();
+                m_thread = thread(dump, index, frame);
+                index++;
+            }
         } else {
             break;
         }
-
-        index++;
 
         // get size of the video frame
         cv::resize(frame, frame, cv::Size(w, h), (0, 0), (0, 0), cv::INTER_LINEAR);
@@ -92,6 +110,7 @@ int main ( int argc, const char *argv[] )
 
     // closing video stream
     camera.release ( );
+    m_thread.join();
 
     return 0;
 }
