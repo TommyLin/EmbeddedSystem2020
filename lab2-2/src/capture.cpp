@@ -62,7 +62,7 @@ void wait_key()
 void dump(int index, cv::Mat frame)
 {
     if ((index > 0) && (index < 999)) {
-        snprintf(buff, sizeof(buff), "/run/media/mmcblk1p1/file-%03d.png", index);
+        snprintf(buff, sizeof(buff), "/run/media/mmcblk1p1/file-%03d.jpg", index);
         cout << buff;
         cv::imwrite(buff, frame, compression_params);
         cout << " Complete ";
@@ -84,7 +84,7 @@ int main ( int argc, const char *argv[] )
     int index = 1;
     thread m_thread, checkInput;
 
-    compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
+    compression_params.push_back(cv::IMWRITE_JPEG_QUALITY);
     compression_params.push_back(9);
 
     // open video stream device
