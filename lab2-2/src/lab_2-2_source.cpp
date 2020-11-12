@@ -44,12 +44,12 @@ int main ( int argc, const char *argv[] )
     // set propety of the frame
     // https://docs.opencv.org/3.4.7/d8/dfe/classcv_1_1VideoCapture.html#a8c6d8c2d37505b5ca61ffd4bb54e9a7c
     // https://docs.opencv.org/3.4.7/d4/d15/group__videoio__flags__base.html#gaeb8dd9c89c10a5c63c139bf7c4f5704d
-    camera.set(2, cv::CAP_ANY);
-
     // Prepare display image size
     camera.read(frame);
     w = fb_info.xres_virtual * frame.size().height / frame.size().width;
     h = fb_info.yres_virtual;
+    camera.set(cv::CAP_PROP_FRAME_WIDTH, w);
+    camera.set(cv::CAP_PROP_FRAME_HEIGHT, h);
 
     while ( true )
     {
@@ -60,7 +60,6 @@ int main ( int argc, const char *argv[] )
 
         // get size of the video frame
         // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a146f8e8dda07d1365a575ab83d9828d1
-        cv::resize(frame, frame, cv::Size(w, h), (0, 0), (0, 0), cv::INTER_LINEAR);
         frame_size = frame.size();
 
         // transfer color space from BGR to BGR565 (16-bit image) to fit the requirement of the LCD
