@@ -9,9 +9,11 @@
 
 using namespace std;
 
-bool running = false;
+bool running = true;
+bool saving = false;
+int counter = 0;
 vector<int> compression_params;
-char buff[16];
+char buff[64];
 
 struct framebuffer_info
 {
@@ -21,15 +23,55 @@ struct framebuffer_info
 };
 
 struct framebuffer_info get_framebuffer_info ( const char *framebuffer_device_path );
+#include <unistd.h>
+#include <termios.h>
+
+char getch() {
+    char buf = 0;
+    struct termios old = {0};
+    if (tcgetattr(0, &old) < 0)
+        perror("tcsetattr()");
+    old.c_lflag &= ~ICANON;
+    old.c_lflag &= ~ECHO;
+    old.c_cc[VMIN] = 1;
+    old.c_cc[VTIME] = 0;
+    if (tcsetattr(0, TCSANOW, &old) < 0)
+        perror("tcsetattr ICANON");
+    if (read(0, &buf, 1) < 0)
+        perror ("read()");
+    old.c_lflag |= ICANON;
+    old.c_lflag |= ECHO;
+    if (tcsetattr(0, TCSADRAIN, &old) < 0)
+        perror ("tcsetattr ~ICANON");
+    return (buf);
+}
+
+void wait_key()
+{
+    char c;
+
+    while (running) {
+        c = getch();
+        if (c == 'c') {
+            counter++;
+        }
+    }
+}
+
 
 void dump(int index, cv::Mat frame)
 {
     if ((index > 0) && (index < 999)) {
-        snprintf(buff, sizeof(buff), "file-%03d.png", index);
+        snprintf(buff, sizeof(buff), "/run/media/mmcblk1p1/file-%03d.png", index);
+        cout << buff;
         cv::imwrite(buff, frame, compression_params);
+        cout << " Complete ";
+        counter--;
+        if (counter)
+            cout << counter << " to go!";
+        cout << endl;
+        saving = false;
     }
-
-    running = false;
 }
 
 
@@ -40,7 +82,7 @@ int main ( int argc, const char *argv[] )
     cv::Size2f frame_size;
     int w, h;
     int index = 1;
-    thread m_thread;
+    thread m_thread, checkInput;
 
     compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
     compression_params.push_back(9);
@@ -55,8 +97,7 @@ int main ( int argc, const char *argv[] )
     ofstream ofs("/dev/fb0");
 
     // check if video stream device is opened success or not
-    if( !camera.isOpened() )
-    {
+    if( !camera.isOpened() ) {
         cerr << "Could not open video device." << endl;
         return -1;
     }
@@ -64,6 +105,7 @@ int main ( int argc, const char *argv[] )
     // Prepare display image size
     camera.read(frame);
     m_thread = thread(dump, 0, frame);
+    checkInput = thread(wait_key);
     w = fb_info.xres_virtual * frame.size().height / frame.size().width;
     h = fb_info.yres_virtual;
 
@@ -71,18 +113,19 @@ int main ( int argc, const char *argv[] )
     camera.set(cv::CAP_PROP_FRAME_WIDTH, w);
     camera.set(cv::CAP_PROP_FRAME_HEIGHT, h);
 
-    while ( true )
-    {
+    while ( true ) {
         // get video frame from stream
         camera.read(frame);
 
         // Write frame to file
-        if (index < 10) {
-            if (!running) {
-                running = true;
-                m_thread.join();
-                m_thread = thread(dump, index, frame);
-                index++;
+        if (index < 20) {
+            if (counter) {
+                if (!saving) {
+                    saving = true;
+                    m_thread.join();
+                    m_thread = thread(dump, index, frame);
+                    index++;
+                }
             }
         } else {
             break;
@@ -103,7 +146,6 @@ int main ( int argc, const char *argv[] )
 
             // write to the framebuffer by "std::ostream::write()"
             // you could use "cv::Mat::ptr()" to get the pointer of the corresponding row.
-            // you also need to cacluate how many bytes required to write to the buffer
             ofs.write(reinterpret_cast<char*>(bgr565.ptr(y)), frame_size.width * (fb_info.bits_per_pixel / 8));
         }
     }
@@ -111,6 +153,8 @@ int main ( int argc, const char *argv[] )
     // closing video stream
     camera.release ( );
     m_thread.join();
+    running = false;
+    checkInput.join();
 
     return 0;
 }
