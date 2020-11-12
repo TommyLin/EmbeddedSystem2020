@@ -30,3 +30,6 @@ Click ""Generate"
 `sudo make install`</br>
 
 Copy `/usr/local/arm-opencv/install/lib/libopencv_world.so.3.4.7` to your target board and rename library to `libopencv_world.so.3.4`.
+
+You can find pre-built opencv library here:
+lab2-2/bin/libopencv_world.so.3.4
