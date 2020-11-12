@@ -61,14 +61,15 @@ int main ( int argc, const char *argv[] )
         return -1;
     }
 
-    // set propety of the frame
-    camera.set(2, cv::CAP_ANY);
-
     // Prepare display image size
     camera.read(frame);
     m_thread = thread(dump, 0, frame);
     w = fb_info.xres_virtual * frame.size().height / frame.size().width;
     h = fb_info.yres_virtual;
+
+    // set propety of the frame
+    camera.set(cv::CAP_PROP_FRAME_WIDTH, w);
+    camera.set(cv::CAP_PROP_FRAME_HEIGHT, h);
 
     while ( true )
     {
@@ -88,7 +89,6 @@ int main ( int argc, const char *argv[] )
         }
 
         // get size of the video frame
-        cv::resize(frame, frame, cv::Size(w, h), (0, 0), (0, 0), cv::INTER_LINEAR);
         frame_size = frame.size();
 
         // transfer color space from BGR to BGR565 (16-bit image) to fit the requirement of the LCD
