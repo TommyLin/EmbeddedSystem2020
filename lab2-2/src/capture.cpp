@@ -118,7 +118,7 @@ int main ( int argc, const char *argv[] )
         camera.read(frame);
 
         // Write frame to file
-        if (index < 20) {
+        if (index < 30) {
             if (counter) {
                 if (!saving) {
                     saving = true;
@@ -155,6 +155,8 @@ int main ( int argc, const char *argv[] )
     m_thread.join();
     running = false;
     checkInput.join();
+
+    cout << argv[0] << " exit" << endl;
 
     return 0;
 }
