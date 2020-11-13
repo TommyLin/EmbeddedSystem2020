@@ -118,7 +118,7 @@ int main ( int argc, const char *argv[] )
         camera.read(frame);
 
         // Write frame to file
-        if (index < 30) {
+        if (index <= 30) {
             if (counter) {
                 if (!saving) {
                     saving = true;
@@ -128,6 +128,7 @@ int main ( int argc, const char *argv[] )
                 }
             }
         } else {
+            running = false;
             break;
         }
 
