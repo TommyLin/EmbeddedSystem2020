@@ -1,5 +1,16 @@
 # Lab 2-2
 
+## Run command on a system reboot
+`$ crontab -e` Setup cron
+```
+SHELL=/bin/bash
+@reboot sleep 10 && /run/media/mmcblk1p1/recorder
+```
+`$ crontab -l` Check current setting
+
+Reference:
+* [How to Run Linux Commands and Scripts Automatically on a System Reboot](https://linuxhint.com/run_linux_command_script_sys_reboot/)
+
 ## Command line
 ### How to disable cursor
 `$ echo 0 > /sys/class/graphics/fbcon/cursor_blink`
