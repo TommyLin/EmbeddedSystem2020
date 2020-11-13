@@ -27,13 +27,7 @@ all: lab22demo capture recorder player
 lab22demo: lab_2-2_source.cpp
 	$(CC) $(CFLAGS) $? -o $@
 
-capture: capture.cpp
-	$(CC) $(CFLAGS) $? -o $@
-
-recorder: recorder.cpp
-	$(CC) $(CFLAGS) $? -o $@
-
-player: player.cpp
+%: %.cpp
 	$(CC) $(CFLAGS) $? -o $@
 
 .PHONY: clean
