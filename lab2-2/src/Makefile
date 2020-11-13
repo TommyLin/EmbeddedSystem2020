@@ -7,6 +7,7 @@ endif
 
 CC = arm-linux-gnueabihf-g++
 CFLAGS = -std=c++11 \
+		 -Wall \
 		 -I $(LINARO_ARM)/include/ \
 		 -I $(OPENCV_ARM)/install/include/ \
 		 -L $(OPENCV_ARM)/install/lib/ \
@@ -19,9 +20,9 @@ CFLAGS = -std=c++11 \
 		 -lpthread \
 		 -lopencv_world
 
-default: all
+.DEFAULT_GOAL = all
 
-all: lab22demo capture
+all: lab22demo capture recorder
 
 lab22demo: lab_2-2_source.cpp
 	$(CC) $(CFLAGS) $? -o $@
@@ -29,6 +30,9 @@ lab22demo: lab_2-2_source.cpp
 capture: capture.cpp
 	$(CC) $(CFLAGS) $? -o $@
 
+recorder: recorder.cpp
+	$(CC) $(CFLAGS) $? -o $@
+
 .PHONY: clean
 clean:
-	rm -rf lab22demo capture
+	rm -rf lab22demo capture recorder
