@@ -22,7 +22,7 @@ CFLAGS = -std=c++11 \
 
 .DEFAULT_GOAL = all
 
-all: lab22demo capture recorder
+all: lab22demo capture recorder player
 
 lab22demo: lab_2-2_source.cpp
 	$(CC) $(CFLAGS) $? -o $@
@@ -33,6 +33,9 @@ capture: capture.cpp
 recorder: recorder.cpp
 	$(CC) $(CFLAGS) $? -o $@
 
+player: player.cpp
+	$(CC) $(CFLAGS) $? -o $@
+
 .PHONY: clean
 clean:
-	rm -rf lab22demo capture recorder
+	rm -rf lab22demo capture recorder player
