@@ -46,12 +46,15 @@ int main ( int argc, const char *argv[] )
     // https://docs.opencv.org/3.4.7/d4/d15/group__videoio__flags__base.html#gaeb8dd9c89c10a5c63c139bf7c4f5704d
     // Prepare display image size
     camera.read(frame);
-    w = fb_info.xres_virtual * frame.size().height / frame.size().width;
-    h = fb_info.yres_virtual;
-    camera.set(cv::CAP_PROP_FRAME_WIDTH, w);
-    camera.set(cv::CAP_PROP_FRAME_HEIGHT, h);
+    int frame_counter = 120;
+    w = camera.get(cv::CAP_PROP_FRAME_WIDTH);
+    h = camera.get(cv::CAP_PROP_FRAME_HEIGHT);
+    std::cout << "(" << w << "," << h << ")" << std::endl;
 
-    while ( true )
+    // Define the codec and create VideoWriter object.The output is stored in 'outcpp.avi' file.
+    cv::VideoWriter video("/run/media/mmcblk1p1/output.avi",CV_FOURCC('M','J','P','G'),10, cv::Size(w,h));
+
+    while ( --frame_counter )
     {
         // get video frame from stream
         // https://docs.opencv.org/3.4.7/d8/dfe/classcv_1_1VideoCapture.html#a473055e77dd7faa4d26d686226b292c1
@@ -82,8 +85,14 @@ int main ( int argc, const char *argv[] )
             // https://docs.opencv.org/3.4.7/d3/d63/classcv_1_1Mat.html#a13acd320291229615ef15f96ff1ff738
             ofs.write(reinterpret_cast<char*>(bgr565.ptr(y)), frame_size.width * (fb_info.bits_per_pixel / 8));
         }
+
+        if (frame.empty())
+            continue;
+
+        video.write(frame);
     }
 
+    video.release();
     // closing video stream
     // https://docs.opencv.org/3.4.7/d8/dfe/classcv_1_1VideoCapture.html#afb4ab689e553ba2c8f0fec41b9344ae6
     camera.release ( );
