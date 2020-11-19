@@ -23,7 +23,7 @@
 - [X] 10/29 Lab 2-1 -- Linux I/O
 - [X] 11/05 Lab 2-1 -- ~~Midterm - No class~~
 - [X] 11/12 [Lab 2-2](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab2-2/doc/109_lab_2-2.pdf) -- Lab II – I/O
-- [ ] 11/19 Lab 2-2 -- SOC concepts and embedded processors
+- [X] 11/19 Lab 2-2 -- SOC concepts and embedded processors
 - [ ] 11/26 Lab 2-3 -- Device Drivers
 
 ### Lab 3
@@ -31,7 +31,7 @@
 - [ ] 12/10 Lab 3-1 -- Lab III – Application Development
 - [ ] 12/17 Lab 3-2 -- Embedded Programming
 - [ ] 12/24 Lab 3-2 -- Case Studies
-- [ ] 12/31 xxxxxxx -- Project Demo??
+- [ ] 12/31 xxxxxxx -- Vacation, no class
 - [ ] 01/07 Lab 3-2 -- Project Demo
 
 
