@@ -22,12 +22,9 @@ CFLAGS = -std=c++11 \
 
 .DEFAULT_GOAL = all
 
-BINS = auto_play scan
+BINS = auto_play
 
 all: $(BINS)
-
-scan: scan.cpp
-	g++ -std=c++11 -Wall $< -o $@
 
 %: %.cpp
 	$(CC) $(CFLAGS) $? -o $@
