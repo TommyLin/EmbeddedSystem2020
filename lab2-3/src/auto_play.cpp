@@ -69,7 +69,7 @@ int main(int argc, const char *argv[])
     cv::Mat image, bgr565;
     cv::Size2f image_size;
     const char *dev = "/dev/fb0";
-	std::vector<std::string> files;
+    std::vector<std::string> files;
 
     framebuffer_info fb_info = get_framebuffer_info(dev);
     std::ofstream ofs(dev);
