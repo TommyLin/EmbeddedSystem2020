@@ -5,6 +5,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <sys/ioctl.h>
+#include <unistd.h>
 
 struct framebuffer_info
 {
@@ -53,6 +54,8 @@ int main(int argc, const char *argv[])
         image_size = image.size();
 
         cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
+
+        sleep(3000);
 
         set_framebuffer(&ofs, &bgr565, image_size, fb_info);
     }
