@@ -77,15 +77,14 @@ int main(int argc, const char *argv[])
     scan_dir("/root/wallpapers", &files);
 
     while (1) {
-        image = cv::imread("sample.bmp");
-
-        image_size = image.size();
-
-        cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
-
-        sleep(3000);
-
-        set_framebuffer(&ofs, &bgr565, image_size, fb_info);
+        for (unsigned int i = 0; i < files.size(); i++) {
+            std::cout << files[i] << std::endl;
+            image = cv::imread(files[i]);
+            image_size = image.size();
+            cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
+            set_framebuffer(&ofs, &bgr565, image_size, fb_info);
+            sleep(3000);
+        }
     }
 
     return 0;
