@@ -7,7 +7,6 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <dirent.h>
-#include <string>
 
 struct framebuffer_info
 {
@@ -44,8 +43,9 @@ int scan_dir(const char* path)
 {
     DIR *dir;
     struct dirent *ent;
+    char *ext;
 
-    if ((dir = opendir(path)) = NULL) {
+    if ((dir = opendir(path)) == NULL) {
         /* could not open directory */
         perror ("");
         return EXIT_FAILURE;
@@ -53,7 +53,9 @@ int scan_dir(const char* path)
 
     /* print all the files and directories within directory */
     while ((ent = readdir(dir)) != NULL) {
-        printf("%s\n", ent->d_name);
+        ext = strrchr(ent->d_name, '.');
+        if (strcmp(ext, ".jpg") == 0)
+            printf("%s\n", ent->d_name);
     }
     closedir(dir);
 
