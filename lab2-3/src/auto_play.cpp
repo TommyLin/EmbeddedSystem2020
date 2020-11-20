@@ -70,20 +70,21 @@ int main(int argc, const char *argv[])
     cv::Size2f image_size;
     const char *dev = "/dev/fb0";
     std::vector<std::string> files;
+    std::string wallpaper_dir = "/root/wallpapers/";
 
     framebuffer_info fb_info = get_framebuffer_info(dev);
     std::ofstream ofs(dev);
 
-    scan_dir("/root/wallpapers", &files);
+    scan_dir(wallpaper_dir.c_str(), &files);
 
     while (1) {
         for (unsigned int i = 0; i < files.size(); i++) {
             std::cout << files[i] << std::endl;
-            image = cv::imread(files[i]);
+            image = cv::imread(wallpaper_dir + files[i]);
             image_size = image.size();
             cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
             set_framebuffer(&ofs, &bgr565, image_size, fb_info);
-            sleep(3000);
+            sleep(2);
         }
     }
 
