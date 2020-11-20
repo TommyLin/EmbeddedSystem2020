@@ -7,6 +7,8 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <iostream>
+#include <vector>
 
 struct framebuffer_info
 {
@@ -39,7 +41,7 @@ void set_framebuffer(std::ofstream *ofs, cv::Mat *bgr565, cv::Size2f image_size,
     }
 }
 
-int scan_dir(const char* path)
+int scan_dir(const char* path, std::vector<std::string> *files)
 {
     DIR *dir;
     struct dirent *ent;
@@ -55,7 +57,7 @@ int scan_dir(const char* path)
     while ((ent = readdir(dir)) != NULL) {
         ext = strrchr(ent->d_name, '.');
         if (strcmp(ext, ".jpg") == 0)
-            printf("%s\n", ent->d_name);
+            files->push_back(ent->d_name);
     }
     closedir(dir);
 
@@ -67,11 +69,12 @@ int main(int argc, const char *argv[])
     cv::Mat image, bgr565;
     cv::Size2f image_size;
     const char *dev = "/dev/fb0";
+	std::vector<std::string> files;
 
     framebuffer_info fb_info = get_framebuffer_info(dev);
     std::ofstream ofs(dev);
 
-    scan_dir("/root/wallpapers");
+    scan_dir("/root/wallpapers", &files);
 
     while (1) {
         image = cv::imread("sample.bmp");
