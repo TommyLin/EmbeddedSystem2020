@@ -6,6 +6,8 @@
 #include <opencv2/imgcodecs.hpp>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <dirent.h>
+#include <string>
 
 struct framebuffer_info
 {
@@ -36,7 +38,26 @@ void set_framebuffer(std::ofstream *ofs, cv::Mat *bgr565, cv::Size2f image_size,
         ofs->write(reinterpret_cast<char*>(bgr565->ptr(y)),
                 image_size.width * (fb_info.bits_per_pixel / 8));
     }
+}
 
+int scan_dir(const char* path)
+{
+    DIR *dir;
+    struct dirent *ent;
+
+    if ((dir = opendir(path)) = NULL) {
+        /* could not open directory */
+        perror ("");
+        return EXIT_FAILURE;
+    }
+
+    /* print all the files and directories within directory */
+    while ((ent = readdir(dir)) != NULL) {
+        printf("%s\n", ent->d_name);
+    }
+    closedir(dir);
+
+    return 0;
 }
 
 int main(int argc, const char *argv[])
@@ -47,6 +68,8 @@ int main(int argc, const char *argv[])
 
     framebuffer_info fb_info = get_framebuffer_info(dev);
     std::ofstream ofs(dev);
+
+    scan_dir("/root/wallpapers");
 
     while (1) {
         image = cv::imread("sample.bmp");
