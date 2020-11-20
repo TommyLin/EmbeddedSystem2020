@@ -14,6 +14,7 @@ struct framebuffer_info
 {
     uint32_t bits_per_pixel;
     uint32_t xres_virtual;
+    uint32_t yres_virtual;
 };
 
 struct framebuffer_info get_framebuffer_info(const char *framebuffer_device_path)
@@ -26,6 +27,7 @@ struct framebuffer_info get_framebuffer_info(const char *framebuffer_device_path
     ioctl(fd, FBIOGET_VSCREENINFO, &screen_info);
 
     fb_info.xres_virtual = screen_info.xres_virtual;
+    fb_info.yres_virtual = screen_info.yres_virtual;
     fb_info.bits_per_pixel = screen_info.bits_per_pixel;
 
     return fb_info;
@@ -71,7 +73,6 @@ int main(int argc, const char *argv[])
     const char *dev = "/dev/fb0";
     std::vector<std::string> files;
     std::string wallpaper_dir = "/root/wallpapers/";
-
     framebuffer_info fb_info = get_framebuffer_info(dev);
     std::ofstream ofs(dev);
 
@@ -79,11 +80,13 @@ int main(int argc, const char *argv[])
 
     while (1) {
         for (unsigned int i = 0; i < files.size(); i++) {
-            std::cout << files[i] << std::endl;
             image = cv::imread(wallpaper_dir + files[i]);
+            std::cout << files[i] << " " << image.size() << " => ";
+            cv::resize(image, image, cv::Size(fb_info.xres_virtual, fb_info.yres_virtual), 0, 0, cv::INTER_LINEAR);
             image_size = image.size();
             cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
             set_framebuffer(&ofs, &bgr565, image_size, fb_info);
+            std::cout << "[" << fb_info.xres_virtual << "x" << fb_info.yres_virtual << "]" << std::endl;
             sleep(2);
         }
     }
