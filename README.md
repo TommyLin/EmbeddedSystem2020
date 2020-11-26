@@ -24,7 +24,7 @@
 - [X] 11/05 Lab 2-1 -- ~~Midterm - No class~~
 - [X] 11/12 [Lab 2-2](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab2-2/doc/109_lab_2-2.pdf) -- Lab II – I/O
 - [X] 11/19 Lab 2-2 -- SOC concepts and embedded processors
-- [ ] 11/26 [Lab 2-3](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab2-3/doc/109_lab_2-3.pdf) -- Device Drivers
+- [X] 11/26 [Lab 2-3](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/lab2-3/doc/109_lab_2-3.pdf) -- Device Drivers
 
 ### Lab 3
 - [ ] 12/03 Lab 3-1 -- Embedded System Design – Modeling and Requirement Development
