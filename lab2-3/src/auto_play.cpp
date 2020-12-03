@@ -80,6 +80,7 @@ int main(int argc, const char *argv[])
 
     while (1) {
         for (unsigned int i = 0; i < files.size(); i++) {
+            fb_info = get_framebuffer_info(dev);
             image = cv::imread(wallpaper_dir + files[i]);
             std::cout << files[i] << " " << image.size() << " => ";
             cv::resize(image, image, cv::Size(fb_info.xres_virtual, fb_info.yres_virtual), 0, 0, cv::INTER_LINEAR);
