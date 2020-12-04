@@ -1,0 +1,16 @@
+#!/usr/bin/expect -f
+
+set timeout 5
+
+set file [lindex $argv 0]
+set user [lindex $argv 1]
+set dir [lindex $argv 2]
+
+spawn scp $file $user@$env(E9V3_IP):$dir
+
+expect {
+    "password:" { send "embedsky\r"; exp_continue }
+    eof
+}
+
+exit

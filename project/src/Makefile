@@ -43,8 +43,10 @@ lint:
 #%: %.cpp
 #	$(CC) $(CXXFLAGS) $? -o $@
 
+# Please setup IP address from environment variable. Such as
+# export E9V3_IP=192.168.1.10
 upload:
-	scp $(TARGET) root@$(E9V3_IP):/root/
+	./upload.exp $(TARGET) root /root
 
 clean:
 	@rm -rfv $(TARGET) $(OBJS)
