@@ -28,7 +28,7 @@ OBJS    = $(SRCS:.cpp=.o)
 TARGET  = capture
 
 .DEFAULT_GOAL = all
-.PHONY: clean
+.PHONY: clean lint upload
 
 all: $(TARGET)
 
@@ -42,6 +42,9 @@ lint:
 # Implicit rule already done by default
 #%: %.cpp
 #	$(CC) $(CXXFLAGS) $? -o $@
+
+upload:
+	scp $(TARGET) root@$(E9V3_IP):/root/
 
 clean:
 	@rm -rfv $(TARGET) $(OBJS)
