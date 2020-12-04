@@ -9,6 +9,7 @@ set dir [lindex $argv 2]
 spawn scp $file $user@$env(E9V3_IP):$dir
 
 expect {
+    "Are you sure you want to continue connecting (yes/no)? " { send "yes\r"; exp_continue }
     "password:" { send "embedsky\r"; exp_continue }
     eof
 }
