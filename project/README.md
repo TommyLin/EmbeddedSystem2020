@@ -6,5 +6,6 @@
 
 
 ## Thermometer (LCD)
-
+### Sensors
+1. Thermometer
 
