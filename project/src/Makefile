@@ -25,14 +25,14 @@ LDFLAGS = \
 		 -lopencv_world
 SRCS    = capture.cpp getch.cpp getfbi.cpp
 OBJS    = $(SRCS:.cpp=.o)
-TARGET  = capture
+TARGET  = capture auto_play
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
 
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
+capture: $(OBJS)
 	$(CXX) $(CXXFLAGS) $? -o $@ $(LDFLAGS)
 
 auto_play: auto_play.cpp
