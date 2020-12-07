@@ -13,7 +13,6 @@ using namespace std;
 bool running = true;
 bool saving = false;
 int counter = 0;
-vector<int> compression_params;
 char buff[64];
 
 
@@ -30,7 +29,7 @@ void wait_key()
 }
 
 
-void dump(int index, cv::Mat frame)
+void dump(int index, cv::Mat frame, vector<int> compression_params)
 {
     if ((index > 0) && (index < 999)) {
         snprintf(buff, sizeof(buff), "/run/media/mmcblk1p1/file-%03d.jpg", index);
@@ -53,6 +52,7 @@ int main(int argc, const char *argv[])
     int w, h;
     int index = 1;
     thread m_thread, checkInput;
+    vector<int> compression_params;
 
     compression_params.push_back(cv::IMWRITE_JPEG_QUALITY);
     compression_params.push_back(9);
@@ -69,7 +69,7 @@ int main(int argc, const char *argv[])
 
     // Prepare display image size
     camera.read(frame);
-    m_thread = thread(dump, 0, frame);
+    m_thread = thread(dump, 0, frame, compression_params);
     checkInput = thread(wait_key);
     w = fb_info.xres_virtual * frame.size().height / frame.size().width;
     h = fb_info.yres_virtual;
@@ -88,7 +88,7 @@ int main(int argc, const char *argv[])
                 if (!saving) {
                     saving = true;
                     m_thread.join();
-                    m_thread = thread(dump, index, frame);
+                    m_thread = thread(dump, index, frame, compression_params);
                     index++;
                 }
             }
