@@ -35,6 +35,9 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $? -o $@ $(LDFLAGS)
 
+auto_play: auto_play.cpp
+	$(CXX) $(CXXFLAGS) $? -o $@ $(LDFLAGS)
+
 # https://github.com/github/super-linter
 lint:
 	sudo docker run -e RUN_LOCAL=true -v $(shell pwd):/tmp/lint github/super-linter
