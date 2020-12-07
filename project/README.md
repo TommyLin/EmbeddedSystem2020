@@ -8,4 +8,5 @@
 ## Thermometer (LCD)
 ### Sensors
 1. Thermometer
+   Grove - Temperature & Humidity Sensor v1.2
 
