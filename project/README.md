@@ -7,6 +7,11 @@
 
 ## [LCD] Thermometer
 
+### 
+1. Diaplay wallpapers
+1. Overlay group ID and date time
+
+
 ### Frame buffer basic information
 | fb# | Buffer Size | bits | virt. size |
 | --- | ----------: | ---- | ---------: |
