@@ -26,7 +26,7 @@ LDFLAGS = \
 
 SRCS    = getch.cpp getfbi.cpp
 OBJS    = $(SRCS:.cpp=.o)
-TARGET  = capture auto_play show_fbi
+TARGET  = capture auto_play show_fbi osd
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
