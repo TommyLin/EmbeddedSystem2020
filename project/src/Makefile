@@ -23,20 +23,21 @@ LDFLAGS = \
 		 -Wl,-rpath=/root \
 		 -lpthread \
 		 -lopencv_world
-SRCS    = capture.cpp getch.cpp getfbi.cpp
+
+SRCS    = getch.cpp getfbi.cpp
 OBJS    = $(SRCS:.cpp=.o)
-TARGET  = capture auto_play
+TARGET  = capture auto_play show_fbi
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
 
 all: $(TARGET)
 
-capture: $(OBJS)
-	$(CXX) $(CXXFLAGS) $? -o $@ $(LDFLAGS)
+capture: capture.cpp $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< $(OBJS) -o $@
 
-auto_play: auto_play.cpp
-	$(CXX) $(CXXFLAGS) $? -o $@ $(LDFLAGS)
+%: %.cpp $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< $(OBJS) -o $@
 
 # https://github.com/github/super-linter
 lint:
