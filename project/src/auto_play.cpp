@@ -10,31 +10,10 @@
 #include <iostream>
 #include <vector>
 
+#include "getfbi.hpp"
+
 using namespace std;
 
-
-struct framebuffer_info
-{
-    uint32_t bits_per_pixel;
-    uint32_t xres_virtual;
-    uint32_t yres_virtual;
-};
-
-struct framebuffer_info get_framebuffer_info(const char *framebuffer_device_path)
-{
-    struct framebuffer_info fb_info;
-    struct fb_var_screeninfo screen_info;
-
-    int fd = open(framebuffer_device_path, O_RDWR);
-
-    ioctl(fd, FBIOGET_VSCREENINFO, &screen_info);
-
-    fb_info.xres_virtual = screen_info.xres_virtual;
-    fb_info.yres_virtual = screen_info.yres_virtual;
-    fb_info.bits_per_pixel = screen_info.bits_per_pixel;
-
-    return fb_info;
-};
 
 void set_framebuffer(ofstream *ofs, cv::Mat *bgr565, cv::Size2f image_size,
         framebuffer_info fb_info)
