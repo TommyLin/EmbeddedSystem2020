@@ -1,14 +1,9 @@
-#include <fcntl.h>
 #include <fstream>
-#include <linux/fb.h>
-#include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
-#include <sys/ioctl.h>
 #include <unistd.h>
 #include <dirent.h>
 #include <iostream>
-#include <vector>
 
 #include "getfbi.hpp"
 
