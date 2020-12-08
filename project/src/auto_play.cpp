@@ -50,6 +50,10 @@ int main(int argc, const char *argv[])
     const char *dev = "/dev/fb0";
     vector<string> files;
     string wallpaper_dir = "/root/wallpapers/";
+
+    if (argc > 1)
+        dev = argv[1];
+
     framebuffer_info fb_info = get_framebuffer_info(dev);
     ofstream ofs(dev);
     string text = "Group 19";
