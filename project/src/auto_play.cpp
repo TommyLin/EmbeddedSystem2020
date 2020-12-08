@@ -69,8 +69,19 @@ int main(int argc, const char *argv[])
             image_size = image.size();
             cv::putText( image, text, cv::Point(20, 40), cv::FONT_HERSHEY_SIMPLEX,
                     1, cv::Scalar(0, 255, 25), 1, cv::LINE_AA);
-            cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
-            set_framebuffer(&ofs, &bgr565, image_size, fb_info);
+            switch (fb_info.bits_per_pixel) {
+            case 16:
+                cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
+                set_framebuffer(&ofs, &bgr565, image_size, fb_info);
+                break;
+            case 24:
+                set_framebuffer(&ofs, &image, image_size, fb_info);
+                break;
+            case 32:
+                break;
+            default:
+                return 1;
+            }
             cout << "[" << fb_info.xres_virtual << "x" << fb_info.yres_virtual << "]" << endl;
             sleep(2);
         }
