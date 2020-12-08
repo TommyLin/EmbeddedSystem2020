@@ -67,8 +67,6 @@ int main(int argc, const char *argv[])
             cout << files[i] << " " << image.size() << " => ";
             cv::resize(image, image, cv::Size(fb_info.xres_virtual, fb_info.yres_virtual), 0, 0, cv::INTER_LINEAR);
             image_size = image.size();
-            cv::putText( image, text, cv::Point(20, 40), cv::FONT_HERSHEY_SIMPLEX,
-                    1, cv::Scalar(0, 255, 25), 1, cv::LINE_AA);
             switch (fb_info.bits_per_pixel) {
             case 16:
                 cv::cvtColor(image, bgr565, cv::COLOR_BGR2BGR565);
