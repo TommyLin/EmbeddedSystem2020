@@ -22,3 +22,13 @@ struct framebuffer_info get_framebuffer_info ( const char *framebuffer_device_pa
 
     return fb_info;
 };
+
+void set_framebuffer(ofstream *ofs, cv::Mat *image, cv::Size2f image_size,
+        framebuffer_info fb_info)
+{
+    for (int y = 0; y < image_size.height; y++) {
+        ofs->seekp(y * fb_info.xres_virtual * (fb_info.bits_per_pixel / 8));
+        ofs->write(reinterpret_cast<char*>(image->ptr(y)),
+                image_size.width * (fb_info.bits_per_pixel / 8));
+    }
+}

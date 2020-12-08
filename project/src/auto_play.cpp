@@ -10,16 +10,6 @@
 using namespace std;
 
 
-void set_framebuffer(ofstream *ofs, cv::Mat *bgr565, cv::Size2f image_size,
-        framebuffer_info fb_info)
-{
-    for (int y = 0; y < image_size.height; y++) {
-        ofs->seekp(y * fb_info.xres_virtual * (fb_info.bits_per_pixel / 8));
-        ofs->write(reinterpret_cast<char*>(bgr565->ptr(y)),
-                image_size.width * (fb_info.bits_per_pixel / 8));
-    }
-}
-
 int scan_dir(const char* path, vector<string> *files)
 {
     DIR *dir;

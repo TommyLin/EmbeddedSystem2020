@@ -1,6 +1,7 @@
 #pragma once
 
-#include <stdint.h>
+#include <fstream>
+#include <opencv2/imgproc/imgproc.hpp>
 
 
 struct framebuffer_info
@@ -12,3 +13,4 @@ struct framebuffer_info
 
 
 struct framebuffer_info get_framebuffer_info (const char *framebuffer_device_path);
+void set_framebuffer(std::ofstream *, cv::Mat *, cv::Size2f, framebuffer_info);
