@@ -21,13 +21,16 @@ int main(int argc, const char *argv[])
     cv::Mat image2, image;// = cv::Mat::zeros(cv::Size(fb_info.xres_virtual, fb_info.yres_virtual), CV_64FC1);
 
     time_t rawtime;
+    struct tm * timeinfo;
+    char buffer[80];
     string datetime;
 
 
     while (1) {
         time(&rawtime);
-        string datetime = asctime(localtime(&rawtime));
-        std::cout << datetime;
+        timeinfo = localtime(&rawtime);
+        strftime(buffer,sizeof(buffer),"%d-%m-%Y %H:%M:%S",timeinfo);
+        string datetime(buffer);
 
         image = cv::imread("/root/black240x100.jpg");
         cv::putText(image, text, cv::Point(10, 40), font, 1, color, 1, cv::LINE_AA);
