@@ -1,5 +1,3 @@
-#include <fstream>
-#include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <unistd.h>
 #include <dirent.h>
