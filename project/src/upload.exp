@@ -1,16 +1,27 @@
 #!/usr/bin/expect -f
 
+# Please set environment variable E9V3_IP, e.g.
+# $ export E9V3_IP=10.63.246.10
+
+
 set timeout 5
+set default_ip 10.63.246.10
+set default_user root
+set default_password embedsky
 
-set file [lindex $argv 0]
-set user [lindex $argv 1]
-set dir [lindex $argv 2]
 
-spawn scp $file $user@$env(E9V3_IP):$dir
+set argv [lassign $argv file user dir]
+set ip $env(E9V3_IP)
+
+if {$user eq ""} {set user $default_user}
+if {$dir eq ""} {set dir /root}
+if {$ip eq ""} {set ip $default_ip}
+
+spawn scp $file $user@$ip:$dir
 
 expect {
     "Are you sure you want to continue connecting (yes/no)? " { send "yes\r"; exp_continue }
-    "password:" { send "embedsky\r"; exp_continue }
+    "password:" { send "$default_password\r"; exp_continue }
     eof
 }
 
