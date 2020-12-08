@@ -16,7 +16,5 @@
 
 
 ### Sensors
-1. Grove - Temp&Humi Sensor
-   Temperature & Humidity Sensor v1.2
-2. Grove - Light Sensor
-   Light Sensor v1.1
+1. [Grove - Temperature&Humidity Sensor (DHT11)](https://wiki.seeedstudio.com/Grove-TemperatureAndHumidity_Sensor/) v1.2
+2. [Grove - Light sensor](https://wiki.seeedstudio.com/Grove-Light_Sensor/) v1.1
