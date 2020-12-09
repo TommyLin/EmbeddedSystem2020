@@ -7,11 +7,12 @@ endif
 
 CC       = arm-linux-gnueabihf-gcc
 CXX      = arm-linux-gnueabihf-g++
-CXXFLAGS = -std=c++11 \
+CFLAGS = \
 		 -Wall \
 		 -I $(LINARO_ARM)/include/ \
 		 -I $(OPENCV_ARM)/install/include/ \
 		 -I ../inc
+CXXFLAGS = -std=c++11 $(CFLAGS)
 
 LDFLAGS = \
 		 -L $(OPENCV_ARM)/install/lib/ \
@@ -26,13 +27,15 @@ LDFLAGS = \
 
 SRCS    = getch.cpp getfbi.cpp DHT.cpp
 OBJS    = $(SRCS:.cpp=.o)
-OBJS    := $(OBJS:.c=.o)
 TARGET  = capture auto_play show_fbi osd i2c
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
 
 all: $(OBJS) $(TARGET)
+
+%: %.c i2c-core.o
+	$(CC) $(CFLAGS) $(LDFLAGS) $? -o $@
 
 %: %.cpp $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< $(OBJS) -o $@
