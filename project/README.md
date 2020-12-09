@@ -17,11 +17,28 @@
 
 
 ## :heavy_check_mark: Audio
-### :cake: Install mpg123
+:cake:
+### Install mpg123
 `# apt -y install mpg123`
-### :cake: Command to play mp3 in a folder
+### Command to play mp3 in a folder
 `# mpg123 /root/mp3`
-
+### Install volume control utility "amixer" from alsa-utils
+`# apt -y install alsa-utils`
+### List devices
+```
+# amixer scontrols
+Simple mixer control 'Headphone',0
+Simple mixer control 'Headphone Mux',0
+Simple mixer control 'Headphone Playback ZC',0
+Simple mixer control 'PCM',0
+Simple mixer control 'Mic',0
+Simple mixer control 'Capture',0
+Simple mixer control 'Capture Attenuate Switch (-6dB)',0
+Simple mixer control 'Capture Mux',0
+Simple mixer control 'Capture ZC',0
+```
+### Set volume
+`# amixer sset 'Headphone' 80%`
 
 ## :heavy_check_mark: Basic Framebuffer Information
 | fb#      | Buffer Size | bits | virt. size |
