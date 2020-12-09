@@ -31,10 +31,7 @@ TARGET  = capture auto_play show_fbi osd
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
 
-all: $(TARGET)
-
-capture: capture.cpp $(OBJS)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< $(OBJS) -o $@
+all: $(OBJS) $(TARGET)
 
 %: %.cpp $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< $(OBJS) -o $@
