@@ -17,9 +17,9 @@
 
 
 ## :heavy_check_mark: Audio
-### Install mpg123
+### :cake: Install mpg123
 `# apt -y install mpg123`
-### Command to play mp3 in a folder
+### :cake: Command to play mp3 in a folder
 `# mpg123 /root/mp3`
 
 
