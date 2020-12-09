@@ -27,15 +27,17 @@ LDFLAGS = \
 
 SRCS    = getch.cpp getfbi.cpp DHT.cpp
 OBJS    = $(SRCS:.cpp=.o)
+CSRCS   = i2c-core.c
+COBJS   = $(CSRCS:.c=.o)
 TARGET  = capture auto_play show_fbi osd i2c
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
 
-all: $(OBJS) $(TARGET)
+all: $(OBJS) $(COBJS) $(TARGET)
 
-%: %.c i2c-core.o
-	$(CC) $(CFLAGS) $(LDFLAGS) $? -o $@
+%: %.c $(COBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $< $(COBJS) -o $@
 
 %: %.cpp $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< $(OBJS) -o $@
@@ -50,5 +52,5 @@ upload:
 	./upload.exp $(TARGET) root /root
 
 clean:
-	@rm -rfv $(TARGET) $(OBJS)
+	@rm -rfv $(TARGET) $(OBJS) $(COBJS)
 	@rm -rfv super-linter.log
