@@ -1,11 +1,7 @@
 #ifndef DHT_H
 #define DHT_H
-#if ARDUINO >= 100
-    #include "Arduino.h"
-#else
-    #include "WProgram.h"
-#endif
-#include <Wire.h>
+
+#include <stdint.h>
 
 // 8 MHz(ish) AVR ---------------------------------------------------------
 #if (F_CPU >= 7400000UL) && (F_CPU <= 9500000UL)
@@ -54,9 +50,9 @@ class DHT {
   private:
     uint8_t data[6];
     uint8_t _pin, _type, _count;
-    boolean read(void);
+    bool read(void);
     unsigned long _lastreadtime;
-    boolean firstreading;
+    bool firstreading;
 
   public:
     DHT(uint8_t pin, uint8_t type, uint8_t count = COUNT);

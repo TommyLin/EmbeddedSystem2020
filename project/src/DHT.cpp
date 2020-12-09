@@ -5,6 +5,25 @@
 */
 
 #include <math.h>
+#include <stdio.h>
+#include <sys/time.h>
+
+// TODO Find delay loop for delay
+#if 0
+#include <linux/delay.h>
+#else
+#include <unistd.h>
+#define delay(x)                        sleep(x)
+#define delayMicroseconds(x)            sleep(x)
+#endif
+
+// TODO find implementation of following function on E9V3
+#define HIGH                            1
+#define digitalRead(x)                  HIGH
+#define digitalWrite(p,v)
+#define pinMode(p,m)
+
+
 #include "DHT.h"
 //#define NAN 0
 #ifdef DEBUG
@@ -12,6 +31,7 @@
 #else
     #define DEBUG_PRINT(...)
 #endif
+
 DHT::DHT(uint8_t pin, uint8_t type, uint8_t count) {
     _pin = pin;
     _type = type;
@@ -20,12 +40,22 @@ DHT::DHT(uint8_t pin, uint8_t type, uint8_t count) {
 }
 
 
+unsigned long millis() {
+   struct timeval current_time;
+   long seconds, useconds;
+
+   gettimeofday(&current_time, NULL);
+   seconds = current_time.tv_sec;
+   useconds = current_time.tv_usec;
+   return ((seconds * 1000) + (useconds / 1000.0));
+}
+
 
 void DHT::begin(void) {
 
     if (_type == DHT10) {
         if (DHT10Init()) {
-            SERIALPRINT.println("Error : Failed to init DHT 11\n");
+            printf("Error : Failed to init DHT 11\n");
             while (1);
         }
     } else {
@@ -133,7 +163,7 @@ float DHT::readHumidity(void) {
 }
 
 
-boolean DHT::read(void) {
+bool DHT::read(void) {
     uint8_t laststate = HIGH;
     uint8_t counter = 0;
     uint8_t j = 0, i;
@@ -232,7 +262,7 @@ int DHT::DHT10Reset(void) {
         return i2cWriteByte(RESET_REG_ADDR);
     } else {
         return 0;
-        SERIALPRINT.println("This function only support for DHT10");
+        printf("This function only support for DHT10");
     }
 
 }
@@ -249,7 +279,7 @@ int DHT::DHT10ReadStatus(void) {
     if (_type == DHT10) {
         ret = i2cReadByte(statu);
         if (ret) {
-            SERIALPRINT.println("Failed to read byte\n");
+            printf("Failed to read byte\n");
         }
         if ((statu & 0x8) == 0x8) {
             return 1;
@@ -257,7 +287,7 @@ int DHT::DHT10ReadStatus(void) {
             return 0;
         }
     } else {
-        SERIALPRINT.println("This function only support for DHT10");
+        printf("This function only support for DHT10");
         return 0;
     }
 
@@ -271,7 +301,7 @@ int DHT::setSystemCfg(void) {
     if (_type == DHT10) {
         return i2cWriteBytes(cfg_param, sizeof(cfg_param));
     } else {
-        SERIALPRINT.println("This function only support for DHT10");
+        printf("This function only support for DHT10");
         return 0;
     }
 }
@@ -285,7 +315,6 @@ int DHT::readTargetData(uint32_t* data) {
     uint8_t statu = 0;
     uint8_t bytes[6] = {0};
     uint8_t cfg_params[] = {0xac, 0x33, 0x00};
-    int ret = 0;
 
     if (_type == DHT10) {
 
@@ -295,8 +324,8 @@ int DHT::readTargetData(uint32_t* data) {
 
         delay(75);
         // check device busy flag， bit[7]:1 for busy, 0 for idle.
-        while (statu & 0x80 == 0x80) {
-            SERIALPRINT.println("Device busy!");
+        while ((statu & 0x80) == 0x80) {
+            printf("Device busy!");
             delay(200);
             if (i2cReadByte(statu)) {
                 return -1;
@@ -320,7 +349,7 @@ int DHT::readTargetData(uint32_t* data) {
 
         return 0;
     } else {
-        SERIALPRINT.println("This function only support for DHT10");
+        printf("This function only support for DHT10");
         return 0;
     }
 }
@@ -341,18 +370,18 @@ int DHT::DHT10Init(void) {
 
         ret = setSystemCfg();
         if (ret) {
-            SERIALPRINT.println("Failed to set system conf reg \n");
+            printf("Failed to set system conf reg \n");
         }
-        //SERIALPRINT.println("Set system cfg OK!");
+        //printf("Set system cfg OK!");
 
         delay(500);
 
         while (DHT10ReadStatus() == 0) {
-            SERIALPRINT.println("get status error!");
+            printf("get status error!");
             DHT10Reset();
             delay(500);
             if (setSystemCfg()) {
-                SERIALPRINT.println("Failed to set system conf reg \n");
+                printf("Failed to set system conf reg \n");
             }
             delay(500);
             cnt++;
@@ -362,7 +391,7 @@ int DHT::DHT10Init(void) {
         }
         return 0;
     } else {
-        SERIALPRINT.println("This function only support for DHT10");
+        printf("This function only support for DHT10");
         return 0;
     }
 
@@ -374,6 +403,7 @@ int DHT::DHT10Init(void) {
 /*****************************************************************************/
 
 int DHT::i2cReadByte(uint8_t& byte) {
+#if 0
     int cnt = 0;
     Wire.requestFrom(DEFAULT_IIC_ADDR, 1);
     while (1 != Wire.available()) {
@@ -385,10 +415,12 @@ int DHT::i2cReadByte(uint8_t& byte) {
     }
 
     byte = Wire.read();
+#endif
     return 0;
 }
 
 int DHT::i2cReadBytes(uint8_t* bytes, uint32_t len) {
+#if 0
     int cnt = 0;
     Wire.requestFrom(DEFAULT_IIC_ADDR, len);
     while (len != Wire.available()) {
@@ -401,22 +433,31 @@ int DHT::i2cReadBytes(uint8_t* bytes, uint32_t len) {
     for (int i = 0; i < len; i++) {
         bytes[i] = Wire.read();
     }
+#endif
     return 0;
 }
 
 
 int DHT::i2cWriteBytes(uint8_t* bytes, uint32_t len) {
+#if 0
     Wire.beginTransmission(DEFAULT_IIC_ADDR);
     for (int i = 0; i < len; i++) {
         Wire.write(bytes[i]);
     }
     return Wire.endTransmission();
+#else
+    return 0;
+#endif
 }
 
 int DHT::i2cWriteByte(uint8_t byte) {
+#if 0
     Wire.beginTransmission(DEFAULT_IIC_ADDR);
     Wire.write(byte);
     return Wire.endTransmission();
+#else
+    return 0;
+#endif
 }
 
 

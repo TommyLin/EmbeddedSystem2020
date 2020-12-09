@@ -24,7 +24,7 @@ LDFLAGS = \
 		 -lpthread \
 		 -lopencv_world
 
-SRCS    = getch.cpp getfbi.cpp
+SRCS    = getch.cpp getfbi.cpp DHT.cpp
 OBJS    = $(SRCS:.cpp=.o)
 OBJS    := $(OBJS:.c=.o)
 TARGET  = capture auto_play show_fbi osd i2c

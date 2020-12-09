@@ -12,6 +12,7 @@
 
 
 #define DEVICE                          "/dev/i2c-0"
+// TODO Change I2C address to DHT11. It might be 0x44(python) or 0x38(DHT.h)
 #define DEVICE_I2C_ADDR                 0x5d
 
 #define REG                             GOODIX_REG_VERSION
@@ -104,7 +105,7 @@ int main (int argc, char **argv){
 
     //从指定寄存器读取数据
     unsigned char rbuf;                 //接收数据buf
-    ret = i2c_read(fd, REG, &rbuf, 1);  //从REG中读取1字节数据，存放在rbuf中 
+    ret = i2c_read(fd, REG, &rbuf, 1);  //从REG中读取1字节数据，存放在rbuf中
     if (ret< 0)
         printf("read data failed\n");
     else
