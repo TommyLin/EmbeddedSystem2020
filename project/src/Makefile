@@ -26,7 +26,8 @@ LDFLAGS = \
 
 SRCS    = getch.cpp getfbi.cpp
 OBJS    = $(SRCS:.cpp=.o)
-TARGET  = capture auto_play show_fbi osd
+OBJS    := $(OBJS:.c=.o)
+TARGET  = capture auto_play show_fbi osd i2c
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
@@ -39,10 +40,6 @@ all: $(OBJS) $(TARGET)
 # https://github.com/github/super-linter
 lint:
 	sudo docker run -e RUN_LOCAL=true -v $(shell pwd):/tmp/lint github/super-linter
-
-# Implicit rule already done by default
-#%: %.cpp
-#	$(CC) $(CXXFLAGS) $? -o $@
 
 # Please setup IP address from environment variable. Such as
 # export E9V3_IP=192.168.1.10
