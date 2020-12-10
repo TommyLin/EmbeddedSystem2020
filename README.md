@@ -29,7 +29,7 @@
 
 ### Lab 3
 - [X] 12/03 Lab 3-1 -- Embedded System Design – Modeling and Requirement Development
-- [ ] 12/10 Lab 3-1 -- Lab III – Application Development
+- [X] 12/10 Lab 3-1 -- Lab III – Application Development
 - [ ] 12/17 Lab 3-2 -- Embedded Programming
 - [ ] 12/24 Lab 3-2 -- Case Studies
 - [ ] 12/31 xxxxxxx -- Vacation, no class
