@@ -12,6 +12,9 @@ using namespace std;
 #define font    cv::FONT_HERSHEY_SIMPLEX
 #define color   cv::Scalar(0, 255, 25)
 
+char *get_ip(char *interface);
+
+
 int main(int argc, const char *argv[])
 {
     const char *dev = "/dev/fb1";
@@ -25,6 +28,9 @@ int main(int argc, const char *argv[])
     char buffer[80];
     string datetime;
 
+    string ipaddr = "IP: ";
+    ipaddr.append(get_ip((char *)"eth0"));
+
 
     while (1) {
         time(&rawtime);
@@ -33,8 +39,9 @@ int main(int argc, const char *argv[])
         string datetime(buffer);
 
         image = cv::imread("/root/black240x100.jpg");
-        cv::putText(image, text, cv::Point(10, 40), font, 1, color, 1, cv::LINE_AA);
+        cv::putText(image, text,     cv::Point(10, 40), font, 1, color, 1, cv::LINE_AA);
         cv::putText(image, datetime, cv::Point(10, 75), font, 0.5, color, 1, cv::LINE_AA);
+        cv::putText(image, ipaddr,   cv::Point(10, 95), font, 0.5, color, 1, cv::LINE_AA);
         cv::cvtColor(image, image2, cv::COLOR_BGR2BGRA);
         set_framebuffer(&ofs, &image2, image.size(), fb_info);
         sleep(1);
