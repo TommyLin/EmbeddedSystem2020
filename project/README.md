@@ -11,10 +11,10 @@
 1. Diaplay wallpapers (Same as Lab2-3)
    - Able to assign framebuffer device node
 1. Overlay group ID and date time
-   - Get system time
-   - Format date / time string
    - Display on auxilary framebuffer /dev/fb1 by call OpenCV api [cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
-
+   - [osd.cpp] Get system time and format date / time string
+   - [src/get_ip.cpp] Get device ip address
+   
 
 ## :heavy_check_mark: Audio
 :cake:
