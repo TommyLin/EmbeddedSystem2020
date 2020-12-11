@@ -37,8 +37,28 @@ Simple mixer control 'Capture Attenuate Switch (-6dB)',0
 Simple mixer control 'Capture Mux',0
 Simple mixer control 'Capture ZC',0
 ```
-### Set volume
+### Set volume (command line)
 `# amixer sset 'Headphone' 80%`
+
+### Get volume (command line)
+```
+# amixer sget 'Headphone'
+Simple mixer control 'Headphone',0
+  Capabilities: pvolume
+  Playback channels: Front Left - Front Right
+  Limits: Playback 0 - 127
+  Mono:
+  Front Left: Playback 127 [100%] [-13.40dB]
+  Front Right: Playback 127 [100%] [-13.40dB]
+```
+
+### Set volume (application)
+- Source file: project/src/volumectrl.cpp
+- Command:
+`# volumectrl`
+- GPIO27 => volume + (max = 100%)
+- GPIO28 => volume - (min = 0%)
+
 
 ## :heavy_check_mark: Basic Framebuffer Information
 | fb#      | Buffer Size | bits | virt. size |
