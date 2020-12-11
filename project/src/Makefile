@@ -29,7 +29,8 @@ SRCS    = \
 		  getch.cpp \
 		  getfbi.cpp \
 		  DHT.cpp \
-		  get_ip.cpp
+		  get_ip.cpp \
+		  gpio.cpp
 OBJS    = $(SRCS:.cpp=.o)
 CSRCS   = i2c-core.c
 COBJS   = $(CSRCS:.c=.o)

@@ -3,3 +3,4 @@ capture
 osd
 show_fbi
 i2c
+gpio_scan
