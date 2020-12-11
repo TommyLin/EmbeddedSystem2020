@@ -34,7 +34,7 @@ SRCS    = \
 OBJS    = $(SRCS:.cpp=.o)
 CSRCS   = i2c-core.c
 COBJS   = $(CSRCS:.c=.o)
-TARGET  = capture auto_play show_fbi osd i2c gpio_scan gpio_monitor
+TARGET  = capture auto_play show_fbi osd i2c volumectrl gpio_monitor
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
