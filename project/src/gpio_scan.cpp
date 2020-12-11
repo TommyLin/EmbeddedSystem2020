@@ -35,6 +35,8 @@ int main(int argc, char **argv, char **envp)
     unsigned int gpio;
     unsigned int value, normal;
     unsigned int volume = 100;
+    unsigned int step = 7;
+    unsigned int key_delay = 500 * ms;
 
 
     if (argc < 2) {
@@ -56,7 +58,7 @@ int main(int argc, char **argv, char **envp)
                 if (volume == 100)
                     cout << "Vol = 100" << endl;
                 else {
-                    volume += 10;
+                    volume += step;
                     if (volume > 100)
                         volume = 100;
                     system(get_command(volume).c_str());
@@ -65,7 +67,7 @@ int main(int argc, char **argv, char **envp)
                 value = get_value(gpio);
                 if (value == normal)
                     break;
-                usleep(800 * ms);
+                usleep(key_delay);
             }
         }
         value = get_value(gpio+1);
@@ -75,8 +77,8 @@ int main(int argc, char **argv, char **envp)
                 if (volume == 0)
                     cout << "Vol = 0" << endl;
                 else {
-                    if (volume > 10)
-                        volume -= 10;
+                    if (volume > step)
+                        volume -= step;
                     else
                         volume = 0;
                     system(get_command(volume).c_str());
@@ -85,7 +87,7 @@ int main(int argc, char **argv, char **envp)
                 value = get_value(gpio+1);
                 if (value == normal)
                     break;
-                usleep(800 * ms);
+                usleep(key_delay);
             }
         }
         usleep(100 * ms);
