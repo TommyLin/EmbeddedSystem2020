@@ -5,12 +5,22 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <poll.h>
+#include <unistd.h>
 
 #include <iostream>
-
 #include "gpio.h"
 
 using namespace std;
+
+
+unsigned int ms = 1000;
+
+
+string get_command(unsigned int volume)
+{
+    string command = "amixer sset 'Headphone' " + to_string(volume) + "%";
+    return command;
+}
 
 
 /****************************************************************
@@ -22,11 +32,9 @@ int main(int argc, char **argv, char **envp)
      * GPIO28 Volumn up
      * GPIO27 Volumn down
      */
-    struct pollfd fdset[2];
-    int nfds = 2;
-    int gpio_fd, timeout, rc;
-    char *buf[MAX_BUF];
     unsigned int gpio;
+    unsigned int value, normal;
+    unsigned int volume = 100;
 
 
     if (argc < 2) {
@@ -35,49 +43,53 @@ int main(int argc, char **argv, char **envp)
         exit(-1);
     }
 
+    system(get_command(100).c_str());
+
     gpio = atoi(argv[1]);
-
-    gpio_export(gpio);
-    gpio_set_dir(gpio, 0);
-    gpio_set_edge(gpio, (char *)"rising");
-    gpio_fd = gpio_fd_open(gpio);
-
-    timeout = POLL_TIMEOUT;
+    normal = get_value(gpio);
 
     while (1) {
-        memset((void*)fdset, 0, sizeof(fdset));
-
-        fdset[0].fd = STDIN_FILENO;
-        fdset[0].events = POLLIN;
-
-        fdset[1].fd = gpio_fd;
-        fdset[1].events = POLLPRI;
-
-        rc = poll(fdset, nfds, timeout);
-
-        if (rc < 0) {
-            printf("\npoll() failed!\n");
-            return -1;
+        value = get_value(gpio);
+        if (value != normal) {
+            cout << normal << " => " << value << endl;
+            while (1) {
+                if (volume == 100)
+                    cout << "Vol = 100" << endl;
+                else {
+                    volume += 10;
+                    if (volume > 100)
+                        volume = 100;
+                    system(get_command(volume).c_str());
+                    cout << "Vol+" << endl;
+                }
+                value = get_value(gpio);
+                if (value == normal)
+                    break;
+                usleep(800 * ms);
+            }
         }
-
-        if (rc == 0) {
-            printf(".");
+        value = get_value(gpio+1);
+        if (value != normal) {
+            cout << normal << " => " << value << endl;
+            while (1) {
+                if (volume == 0)
+                    cout << "Vol = 0" << endl;
+                else {
+                    if (volume > 10)
+                        volume -= 10;
+                    else
+                        volume = 0;
+                    system(get_command(volume).c_str());
+                    cout << "Vol-" << endl;
+                }
+                value = get_value(gpio+1);
+                if (value == normal)
+                    break;
+                usleep(800 * ms);
+            }
         }
-
-        if (fdset[1].revents & POLLPRI) {
-            read(fdset[1].fd, buf, MAX_BUF);
-            printf("\npoll() GPIO %d interrupt occurred\n", gpio);
-        }
-
-        if (fdset[0].revents & POLLIN) {
-            (void)read(fdset[0].fd, buf, 1);
-            printf("\npoll() stdin read 0x%2.2X\n", (unsigned int) buf[0]);
-        }
-
-        fflush(stdout);
+        usleep(100 * ms);
     }
-
-    gpio_fd_close(gpio_fd);
 
     return 0;
 }
