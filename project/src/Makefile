@@ -25,7 +25,11 @@ LDFLAGS = \
 		 -lpthread \
 		 -lopencv_world
 
-SRCS    = getch.cpp getfbi.cpp DHT.cpp get_ip.cpp
+SRCS    = \
+		  getch.cpp \
+		  getfbi.cpp \
+		  DHT.cpp \
+		  get_ip.cpp
 OBJS    = $(SRCS:.cpp=.o)
 CSRCS   = i2c-core.c
 COBJS   = $(CSRCS:.c=.o)
