@@ -254,7 +254,7 @@ int main(int argc, char **argv, char **envp)
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 32; j++) {
                 gpio = (i * 32) + j;
-                if (gpio == 203)
+                if ((gpio == 202) || (gpio == 203))
                     continue;
 
                 value = get_value(gpio);
