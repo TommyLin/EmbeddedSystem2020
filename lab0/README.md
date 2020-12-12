@@ -5,3 +5,6 @@ References:
 
 Linux kernel headers
 * [Linux kernel release 4.x <http://kernel.org/>](https://github.com/boundarydevices/linux-imx6/tree/boundary-imx_4.1.15_1.0.0_ga)
+* [congvue/e9v3 Linux kernel source](https://github.com/congvue/e9v3)
+* [zhangxuran11/E9v3_bsp](https://github.com/zhangxuran11/E9v3_bsp)
+
