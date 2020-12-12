@@ -30,9 +30,10 @@ SRCS    = \
 		  getfbi.cpp \
 		  DHT.cpp \
 		  get_ip.cpp \
-		  gpio.cpp
+		  gpio.cpp \
+		  i2c-core.cpp
 OBJS    = $(SRCS:.cpp=.o)
-CSRCS   = i2c-core.c
+CSRCS   =
 COBJS   = $(CSRCS:.c=.o)
 TARGET  = capture auto_play show_fbi osd i2c volumectrl gpio_monitor
 

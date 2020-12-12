@@ -17,8 +17,8 @@ int i2c_read(int fd, unsigned short reg, unsigned char *rbuf, int len){
     i2c_data.nmsgs = 2;
     i2c_data.msgs = msgs;
     unsigned char tbuf[] = {
-        reg >> 8,
-        reg & 0xff,
+        (char)(reg >> 8),
+        (char)(reg & 0xff),
     };
     msgs[0].flags = 0;                  //写标志
     msgs[0].addr  = DEVICE_I2C_ADDR;    //i2c地址
