@@ -30,12 +30,11 @@ SRCS    = \
 		  getfbi.cpp \
 		  DHT.cpp \
 		  get_ip.cpp \
-		  gpio.cpp \
-		  i2c-core.cpp
+		  gpio.cpp
 OBJS    = $(SRCS:.cpp=.o)
 CSRCS   =
 COBJS   = $(CSRCS:.c=.o)
-TARGET  = capture auto_play show_fbi osd i2c volumectrl gpio_monitor
+TARGET  = auto_play show_fbi osd volumectrl gpio_monitor
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
