@@ -13,7 +13,7 @@
 using namespace std;
 
 
-unsigned int ms = 1000;
+inline void msdelay(int milliseconds) { usleep(milliseconds * 1000); };
 
 
 string get_command(unsigned int volume)
@@ -36,7 +36,7 @@ int main(int argc, char **argv, char **envp)
     unsigned int value, normal;
     unsigned int volume = 100;
     unsigned int step = 7;
-    unsigned int key_delay = 500 * ms;
+    unsigned int key_delay = 500; /* ms */
 
 
     if (argc < 2) {
@@ -67,7 +67,7 @@ int main(int argc, char **argv, char **envp)
                 value = get_value(gpio);
                 if (value == normal)
                     break;
-                usleep(key_delay);
+                msdelay(key_delay);
             }
         }
         value = get_value(gpio+1);
@@ -87,10 +87,10 @@ int main(int argc, char **argv, char **envp)
                 value = get_value(gpio+1);
                 if (value == normal)
                     break;
-                usleep(key_delay);
+                msdelay(key_delay);
             }
         }
-        usleep(100 * ms);
+        msdelay(100);
     }
 
     return 0;
