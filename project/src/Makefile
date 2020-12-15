@@ -29,6 +29,7 @@ SRCS     = \
 		   getfbi.cpp \
 		   DHT.cpp \
 		   get_ip.cpp \
+		   i2c-core.cpp \
 		   gpio.cpp
 OBJS     = $(addprefix $(BUILDDIR)/,$(SRCS:.cpp=.o))
 CSRCS    =

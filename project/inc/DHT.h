@@ -53,6 +53,7 @@ class DHT {
     bool read(void);
     unsigned long _lastreadtime;
     bool firstreading;
+    int fd = -1;
 
   public:
     DHT(uint8_t pin, uint8_t type, uint8_t count = COUNT);

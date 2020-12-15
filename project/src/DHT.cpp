@@ -4,8 +4,11 @@
     written by Adafruit Industries
 */
 
+#include <fcntl.h>
+#include <linux/i2c-dev.h>
 #include <math.h>
 #include <stdio.h>
+#include <sys/ioctl.h>
 #include <sys/time.h>
 #include <unistd.h>
 
@@ -23,10 +26,22 @@
 #include "DHT.h"
 //#define NAN 0
 #ifdef DEBUG
-    #define DEBUG_PRINT(...)  printf(__VA_ARGS__)
+    #define DEBUG_PRINT(...)            printf(__VA_ARGS__)
 #else
     #define DEBUG_PRINT(...)
 #endif
+
+
+#include "i2c-core.h"
+
+#define DEVICE                          "/dev/i2c-0"
+
+#define REG                             GOODIX_REG_VERSION
+
+#define GOODIX_READ_COOR_ADDR           0x814E
+#define GOODIX_REG_CONFIG_DATA          0x8047
+#define GOODIX_REG_VERSION              0x8140
+
 
 DHT::DHT(uint8_t pin, uint8_t type, uint8_t count) {
     _pin = pin;
@@ -61,6 +76,15 @@ void DHT::begin(void) {
         pinMode(_pin, INPUT);
         digitalWrite(_pin, HIGH);
         _lastreadtime = 0;
+
+        if ((fd = open(DEVICE, O_RDWR)) < 0) {
+            printf("Open device %s faile!!!", DEVICE);
+            return;
+        }
+
+        ioctl(fd, I2C_SLAVE, (unsigned long)DEFAULT_IIC_ADDR);  /*配置slave地址*/
+        ioctl(fd, I2C_TIMEOUT, 10);         /*配置超时时间*/
+        ioctl(fd, I2C_RETRIES, 2);          /*配置重试次数*/
     }
 
 }
@@ -413,6 +437,17 @@ int DHT::i2cReadByte(uint8_t& byte) {
     }
 
     byte = Wire.read();
+#else
+    unsigned char rbuf;                 //接收数据buf
+
+    //从REG中读取1字节数据，存放在rbuf中
+    if (i2c_read(fd, REG, &rbuf, 1) < 0) {
+        printf("read data failed\n");
+        return -1;
+    } else {
+        printf("read data success, read from register %hx, value is %#x \n", REG, rbuf);
+        byte = rbuf;
+    }
 #endif
     return 0;
 }
@@ -431,6 +466,13 @@ int DHT::i2cReadBytes(uint8_t* bytes, uint32_t len) {
     for (int i = 0; i < len; i++) {
         bytes[i] = Wire.read();
     }
+#else
+    if (i2c_read(fd, REG, bytes, len) < 0) {
+        printf("read data failed\n");
+        return -1;
+    } else {
+        printf("read data success, read from register %hx, value is %#x \n", REG, bytes[0]);
+    }
 #endif
     return 0;
 }
@@ -444,6 +486,21 @@ int DHT::i2cWriteBytes(uint8_t* bytes, uint32_t len) {
     }
     return Wire.endTransmission();
 #else
+    //写入数据到指定寄存器
+    unsigned char tbuf[] = {            //i2c要发送的数据，
+        REG >> 8,                       //第1或2字节是寄存器地址，16位寄存器使用2字节,8位寄存器使用1字节
+        REG & 0xff,
+        bytes[0],                       //要写入的数据
+        bytes[1],                       //要写入的数据
+        bytes[2],                       //要写入的数据
+    };
+
+    if (i2c_write(fd, tbuf, sizeof(tbuf)) != 0) {
+        printf("i2c_write failed\n");
+        return -1;
+    } else {
+        printf("write data seccess, write to reg %hx, value = %#x \n", REG, tbuf[2]);
+    }
     return 0;
 #endif
 }
@@ -454,10 +511,19 @@ int DHT::i2cWriteByte(uint8_t byte) {
     Wire.write(byte);
     return Wire.endTransmission();
 #else
+    //写入数据到指定寄存器
+    unsigned char tbuf[] = {            //i2c要发送的数据，
+        REG >> 8,                       //第1或2字节是寄存器地址，16位寄存器使用2字节,8位寄存器使用1字节
+        REG & 0xff,
+        byte,                           //要写入的数据
+    };
+
+    if (i2c_write(fd, tbuf, sizeof(tbuf)) != 0) {
+        printf("i2c_write failed\n");
+        return -1;
+    } else {
+        printf("write data seccess, write to reg %hx, value = %#x \n", REG, tbuf[2]);
+    }
     return 0;
 #endif
 }
-
-
-
-
