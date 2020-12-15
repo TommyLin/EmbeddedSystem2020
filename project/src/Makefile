@@ -31,12 +31,13 @@ SRCS     = \
 		   get_ip.cpp \
 		   i2c-core.cpp \
 		   gpio.cpp
-OBJS     = $(addprefix $(BUILDDIR)/,$(SRCS:.cpp=.o))
+OBJS     = $(addprefix $(OBJSDIR)/,$(SRCS:.cpp=.o))
 CSRCS    =
 COBJS    = $(CSRCS:.c=.o)
 BINARIES = auto_play show_fbi osd volumectrl gpio_monitor DHTtester
 TARGET   = $(addprefix $(BUILDDIR)/,$(BINARIES))
 BUILDDIR = output
+OBJSDIR  = $(BUILDDIR)/objs
 
 .DEFAULT_GOAL = all
 .PHONY: clean lint upload
@@ -48,6 +49,7 @@ test:
 
 prepare:
 	@if [ ! -d $(BUILDDIR) ]; then mkdir -pv $(BUILDDIR); fi
+	@if [ ! -d $(OBJSDIR) ]; then mkdir -pv $(OBJSDIR); fi
 
 $(BUILDDIR)/%: %.c $(COBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $< $(COBJS) -o $@
@@ -55,7 +57,7 @@ $(BUILDDIR)/%: %.c $(COBJS)
 $(BUILDDIR)/%: %.cpp $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< $(OBJS) -o $@
 
-$(BUILDDIR)/%.o: %.cpp
+$(OBJSDIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 # https://github.com/github/super-linter
