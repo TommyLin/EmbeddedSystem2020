@@ -17,13 +17,16 @@
    
 
 ## :heavy_check_mark: Audio
-:cake:
-### Install mpg123
+
+### :cake: Install mpg123
 `# apt -y install mpg123`
+
 ### Command to play mp3 in a folder
 `# mpg123 /root/mp3`
+
 ### Install volume control utility "amixer" from alsa-utils
 `# apt -y install alsa-utils`
+
 ### List devices
 ```
 # amixer scontrols
@@ -52,10 +55,16 @@ Simple mixer control 'Headphone',0
   Front Right: Playback 127 [100%] [-13.40dB]
 ```
 
-### Set volume (application)
-- Source file: project/src/volumectrl.cpp
-- Command:
-`# volumectrl`
+### Volume Control (application)
+- Source file: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
+
+#### rev: 0.2
+- Command: `# volumectrl`
+- Keyboard input code: 114 => volume +  (max = 100%)
+- Keyboard input code: 115 => volume -  (min =   0%)
+#### rev: 0.1 (obsolete)
+
+- Command: `# volumectrl 27`
 - GPIO27 => volume + (max = 100%)
 - GPIO28 => volume - (min = 0%)
 
@@ -69,10 +78,14 @@ Simple mixer control 'Headphone',0
 
 
 ## :heavy_check_mark: Command Line Interface
+
 ### Disable cursor blink
 `# echo 0 > /sys/class/graphics/fbcon/cursor_blink`
+
 ### Enable frambuffer
+
 #### Enable /dev/fb1
 `# echo 0 > /sys/class/graphics/fb1/blank`
+
 #### Enable /dev/fb2
 `# echo 0 > /sys/class/graphics/fb2/blank`
