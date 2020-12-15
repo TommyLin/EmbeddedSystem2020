@@ -25,7 +25,7 @@
 `# apt -y install mpg123`
 
 ### Command to play mp3 in a folder
-`# mpg123 /root/mp3`
+`# mpg123 /root/mp3/spring/*`
 
 ### Install volume control utility "amixer" from alsa-utils
 `# apt -y install alsa-utils`
