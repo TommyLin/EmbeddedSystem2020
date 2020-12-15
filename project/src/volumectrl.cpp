@@ -18,11 +18,50 @@ using namespace std;
 inline void msdelay(int milliseconds) { usleep(milliseconds * 1000); };
 
 
-string get_command(unsigned int volume)
+class volume_ctrl
 {
-    string command = "amixer sset 'Headphone' " + to_string(volume) + "%";
-    return command;
-}
+public:
+    volume_ctrl(int volume)
+    {
+        set_volume(volume);
+    }
+
+    void set_volume(int volume)
+    {
+        string command = "amixer sset 'Headphone' " + to_string(volume) + "%";
+        system(command.c_str());
+    }
+
+    void inc(int step)
+    {
+        if (volume >= 100) {
+            cout << "Vol = 100" << endl;
+        } else {
+            cout << "Vol+" << endl;
+            volume += step;
+            if (volume > 100)
+                volume = 100;
+            set_volume(volume);
+        }
+    }
+
+    void dec(int step)
+    {
+        if (volume <= 0) {
+            cout << "Vol = 0" << endl;
+        } else {
+            cout << "Vol-" << endl;
+            if (volume > step)
+                volume -= step;
+            else
+                volume = 0;
+            set_volume(volume);
+        }
+    }
+
+private:
+    int volume = 100;
+};
 
 
 /****************************************************************
@@ -30,12 +69,11 @@ string get_command(unsigned int volume)
  ****************************************************************/
 int main(int argc, char **argv, char **envp)
 {
-    unsigned int volume = 100;
-    unsigned int step = 7;
-//    unsigned int key_delay = 500; /* ms */
-
+    int step = 7;
     int keys_fd;
     struct input_event t;
+
+    volume_ctrl vc(100);
 
     /*
      * 114 Volumn up
@@ -47,40 +85,18 @@ int main(int argc, char **argv, char **envp)
         return -1;
     }
 
-    system(get_command(100).c_str());
-
-    while(1) {
+    while (1) {
         if (read(keys_fd, &t, sizeof(t)) == sizeof(t)) {
+            if (t.value == 0)
+                /* Key release, don't care */
+                continue;
             if (t.type == EV_KEY) {
                 switch (t.code) {
                 case 114:
-                    if (t.value == 0)
-                        break;
-
-                    if (volume == 100)
-                        cout << "Vol = 100" << endl;
-                    else {
-                        volume += step;
-                        if (volume > 100)
-                            volume = 100;
-                        system(get_command(volume).c_str());
-                        cout << "Vol+" << endl;
-                    }
+                    vc.inc(step);
                     break;
                 case 115:
-                    if (t.value == 0)
-                        break;
-
-                    if (volume == 0)
-                        cout << "Vol = 0" << endl;
-                    else {
-                        if (volume > step)
-                            volume -= step;
-                        else
-                            volume = 0;
-                        system(get_command(volume).c_str());
-                        cout << "Vol-" << endl;
-                    }
+                    vc.dec(step);
                     break;
                 }
             }
