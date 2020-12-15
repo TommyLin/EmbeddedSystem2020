@@ -55,6 +55,7 @@ int main(int argc, const char *argv[])
             if (!osd_on) {
                 osd_on = true;
                 system("echo 0 > /sys/class/graphics/fb1/blank");
+                sleep(1);
             }
             break;
         case 1:
@@ -64,7 +65,6 @@ int main(int argc, const char *argv[])
             }
             break;
         }
-        sleep(1);
     }
 
     return 0;
