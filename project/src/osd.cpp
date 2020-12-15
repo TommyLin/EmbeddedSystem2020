@@ -5,6 +5,7 @@
 #include <opencv2/imgcodecs.hpp>
 
 #include "getfbi.hpp"
+#include "gpio.h"
 
 using namespace std;
 
@@ -28,9 +29,14 @@ int main(int argc, const char *argv[])
     char buffer[80];
     string datetime;
 
+    bool osd_on = false;
+
     string ipaddr = "IP: ";
     ipaddr.append(get_ip((char *)"eth0"));
 
+    system("echo 0 > /sys/class/graphics/fb1/blank");
+    sleep(3);
+    system("echo 1 > /sys/class/graphics/fb1/blank");
 
     while (1) {
         time(&rawtime);
@@ -44,6 +50,20 @@ int main(int argc, const char *argv[])
         cv::putText(image, ipaddr,   cv::Point(10, 95), font, 0.5, color, 1, cv::LINE_AA);
         cv::cvtColor(image, image2, cv::COLOR_BGR2BGRA);
         set_framebuffer(&ofs, &image2, image.size(), fb_info);
+        switch (get_value(27)) {
+        case 0:
+            if (!osd_on) {
+                osd_on = true;
+                system("echo 0 > /sys/class/graphics/fb1/blank");
+            }
+            break;
+        case 1:
+            if (osd_on) {
+                osd_on = false;
+                system("echo 1 > /sys/class/graphics/fb1/blank");
+            }
+            break;
+        }
         sleep(1);
     }
 
