@@ -15,47 +15,20 @@
    - [project/src/get_ip.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/get_ip.cpp) - Get device (eth0) ip address
 
 #### Notes
-   - Enable /dev/fb1 `# echo 0 > /sys/class/graphics/fb1/blank`
+   - Enable /dev/fb1
+     ```
+     # echo 0 > /sys/class/graphics/fb1/blank
+     ```
    - Display on auxilary framebuffer /dev/fb1 by call [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
    
 
 ## :heavy_check_mark: Audio
 
-### :cake: Install mpg123
-`# apt -y install mpg123`
+* :cake: [How to install mpg123 on E9V3](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/howto_install_mpg123.md)
 
-### Command to play mp3 in a folder
-`# mpg123 /root/mp3/spring/*`
-
-### Install volume control utility "amixer" from alsa-utils
-`# apt -y install alsa-utils`
-
-### List devices
+### Play mp3 files in a folder
 ```
-# amixer scontrols
-Simple mixer control 'Headphone',0
-Simple mixer control 'Headphone Mux',0
-Simple mixer control 'Headphone Playback ZC',0
-Simple mixer control 'PCM',0
-Simple mixer control 'Mic',0
-Simple mixer control 'Capture',0
-Simple mixer control 'Capture Attenuate Switch (-6dB)',0
-Simple mixer control 'Capture Mux',0
-Simple mixer control 'Capture ZC',0
-```
-### Set volume (command line)
-`# amixer sset 'Headphone' 80%`
-
-### Get volume (command line)
-```
-# amixer sget 'Headphone'
-Simple mixer control 'Headphone',0
-  Capabilities: pvolume
-  Playback channels: Front Left - Front Right
-  Limits: Playback 0 - 127
-  Mono:
-  Front Left: Playback 127 [100%] [-13.40dB]
-  Front Right: Playback 127 [100%] [-13.40dB]
+# mpg123 /root/mp3/spring/*
 ```
 
 ### Volume Control (application)
@@ -65,8 +38,8 @@ Simple mixer control 'Headphone',0
 - Command: `# volumectrl`
 - Keyboard input code: 114 => volume +  (max = 100%)
 - Keyboard input code: 115 => volume -  (min =   0%)
-#### rev: 0.1 (obsolete)
 
+#### rev: 0.1 (obsolete)
 - Command: `# volumectrl 27`
 - ~GPIO27 => volume + (max = 100%)~
 - ~GPIO28 => volume - (min = 0%)~
