@@ -65,8 +65,8 @@ Simple mixer control 'Headphone',0
 #### rev: 0.1 (obsolete)
 
 - Command: `# volumectrl 27`
-- GPIO27 => volume + (max = 100%)
-- GPIO28 => volume - (min = 0%)
+- ~GPIO27 => volume + (max = 100%)~
+- ~GPIO28 => volume - (min = 0%)~
 
 
 ## :heavy_check_mark: Basic Framebuffer Information
