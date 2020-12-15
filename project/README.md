@@ -33,16 +33,9 @@
 
 ### Volume Control (application)
 - Source file: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
-
-#### rev: 0.2
 - Command: `# volumectrl`
 - Keyboard input code: 114 => volume +  (max = 100%)
 - Keyboard input code: 115 => volume -  (min =   0%)
-
-#### rev: 0.1 (obsolete)
-- Command: `# volumectrl 27`
-- ~GPIO27 => volume + (max = 100%)~
-- ~GPIO28 => volume - (min = 0%)~
 
 
 ## :heavy_check_mark: Basic Framebuffer Information
