@@ -5,15 +5,18 @@
 
 
 
-## :heavy_check_mark: [LCD] Thermometer
+## :heavy_check_mark: [LCD] Display
 
 ### 
-1. Diaplay wallpapers (Same as Lab2-3)
-   - Able to assign framebuffer device node
-1. Overlay group ID and date time
-   - Display on auxilary framebuffer /dev/fb1 by call OpenCV api [cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
-   - [osd.cpp] Get system time and format date / time string
-   - [src/get_ip.cpp] Get device ip address
+1. [Background `/dev/fb0`] Diaplay wallpapers (Same as Lab2-3)
+   - [project/src/auto_play.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/auto_play.cpp) - Able to assign framebuffer device node
+1. [Foreground `/dev/fb1`] Overlay information
+   - [project/src/osd.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp) - Get system time and format date / time string
+   - [project/src/get_ip.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/get_ip.cpp) - Get device (eth0) ip address
+
+#### Notes
+   - Enable /dev/fb1 `# echo 0 > /sys/class/graphics/fb1/blank`
+   - Display on auxilary framebuffer /dev/fb1 by call [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
    
 
 ## :heavy_check_mark: Audio
