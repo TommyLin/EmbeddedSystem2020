@@ -7,15 +7,11 @@
 #include <math.h>
 #include <stdio.h>
 #include <sys/time.h>
-
-// TODO Find delay loop for delay
-#if 0
-#include <linux/delay.h>
-#else
 #include <unistd.h>
-#define delay(x)                        sleep(x)
-#define delayMicroseconds(x)            sleep(x)
-#endif
+
+
+#define delay(x)                        msdelay(x)
+#define delayMicroseconds(x)            msdelay(x)
 
 // TODO find implementation of following function on E9V3
 #define HIGH                            1
@@ -27,7 +23,7 @@
 #include "DHT.h"
 //#define NAN 0
 #ifdef DEBUG
-    #define DEBUG_PRINT(...)  Serial.println(__VA_ARGS__)
+    #define DEBUG_PRINT(...)  printf(__VA_ARGS__)
 #else
     #define DEBUG_PRINT(...)
 #endif
@@ -39,6 +35,8 @@ DHT::DHT(uint8_t pin, uint8_t type, uint8_t count) {
     firstreading = true;
 }
 
+
+inline void msdelay(int milliseconds) { usleep(milliseconds * 1000); };
 
 unsigned long millis() {
    struct timeval current_time;
