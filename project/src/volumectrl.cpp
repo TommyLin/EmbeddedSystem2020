@@ -51,9 +51,8 @@ public:
             cout << "Vol = 0" << endl;
         } else {
             cout << "Vol-" << endl;
-            if (volume > step)
-                volume -= step;
-            else
+            volume -= step;
+            if (volume < 0)
                 volume = 0;
             set_volume(volume);
         }
