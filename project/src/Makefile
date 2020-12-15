@@ -33,7 +33,7 @@ SRCS     = \
 OBJS     = $(addprefix $(BUILDDIR)/,$(SRCS:.cpp=.o))
 CSRCS    =
 COBJS    = $(CSRCS:.c=.o)
-BINARIES = auto_play show_fbi osd volumectrl gpio_monitor
+BINARIES = auto_play show_fbi osd volumectrl gpio_monitor DHTtester
 TARGET   = $(addprefix $(BUILDDIR)/,$(BINARIES))
 BUILDDIR = output
 
