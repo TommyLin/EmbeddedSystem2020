@@ -440,6 +440,8 @@ int DHT::i2cReadByte(uint8_t& byte) {
 #else
     unsigned char rbuf;                 //接收数据buf
 
+    printf("=== %s ===", __FUNCTION__);
+
     //从REG中读取1字节数据，存放在rbuf中
     if (i2c_read(fd, REG, &rbuf, 1) < 0) {
         printf("read data failed\n");
@@ -467,6 +469,8 @@ int DHT::i2cReadBytes(uint8_t* bytes, uint32_t len) {
         bytes[i] = Wire.read();
     }
 #else
+    printf("=== %s === len=%d", __FUNCTION__, len);
+
     if (i2c_read(fd, REG, bytes, len) < 0) {
         printf("read data failed\n");
         return -1;
@@ -486,6 +490,8 @@ int DHT::i2cWriteBytes(uint8_t* bytes, uint32_t len) {
     }
     return Wire.endTransmission();
 #else
+    printf("=== %s === len=%d", __FUNCTION__, len);
+
     //写入数据到指定寄存器
     unsigned char tbuf[] = {            //i2c要发送的数据，
         REG >> 8,                       //第1或2字节是寄存器地址，16位寄存器使用2字节,8位寄存器使用1字节
@@ -511,6 +517,8 @@ int DHT::i2cWriteByte(uint8_t byte) {
     Wire.write(byte);
     return Wire.endTransmission();
 #else
+    printf("=== %s === data=%d", __FUNCTION__, byte);
+
     //写入数据到指定寄存器
     unsigned char tbuf[] = {            //i2c要发送的数据，
         REG >> 8,                       //第1或2字节是寄存器地址，16位寄存器使用2字节,8位寄存器使用1字节
