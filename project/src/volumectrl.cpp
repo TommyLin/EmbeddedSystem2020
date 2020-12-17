@@ -13,7 +13,7 @@
 using namespace std;
 
 
-#define DEV_PATH "/dev/input/event3"
+#define DEV_PATH "/dev/input/by-path/platform-gpio-keys-event"
 
 inline void msdelay(int milliseconds) { usleep(milliseconds * 1000); };
 
@@ -28,7 +28,7 @@ public:
 
     void set_volume(int volume)
     {
-        string command = "amixer sset 'Headphone' " + to_string(volume) + "%";
+        string command = "amixer -q sset 'Headphone' " + to_string(volume) + "%";
         system(command.c_str());
     }
 
@@ -37,11 +37,11 @@ public:
         if (volume >= 100) {
             cout << "Vol = 100" << endl;
         } else {
-            cout << "Vol+" << endl;
             volume += step;
             if (volume > 100)
                 volume = 100;
             set_volume(volume);
+            cout << "Vol+ (" << volume << ")" << endl;
         }
     }
 
@@ -50,11 +50,11 @@ public:
         if (volume <= 0) {
             cout << "Vol = 0" << endl;
         } else {
-            cout << "Vol-" << endl;
             volume -= step;
             if (volume < 0)
                 volume = 0;
             set_volume(volume);
+            cout << "Vol- (" << volume << ")" << endl;
         }
     }
 
