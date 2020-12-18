@@ -7,7 +7,6 @@ endif
 CC = arm-linux-gnueabihf-g++
 CFLAGS = -std=c++11 \
 		 -Wall \
-		 -I $(LINARO_ARM)/include/ \
 		 -I $(OPENCV_ARM)/install/include/ \
 		 -L $(OPENCV_ARM)/install/lib/ \
 		 -Wl,-rpath-link=$(LINARO_ARM)/arm-linux-gnueabihf/libc/lib/ \
@@ -31,4 +30,4 @@ FaceDetection: FaceDetection.cpp
 
 .PHONY: clean
 clean:
-	rm -rf lab22demo capture2 recorder player FaceDetection
+	@rm -rfv FaceDetection
