@@ -20,10 +20,12 @@ CascadeClassifier face_cascade; // Declare the face classifier
 CascadeClassifier eyes_cascade; // Declare the eyes classifier
 String window_name = "Face detection";
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
     /* Open the web camera */
     VideoCapture capture = VideoCapture(2);
     Mat frame, image;
+    const clock_t begin_time = clock();
+    clock_t lap_time;
 
     /** Load cascade classifiers **/
     if (!face_cascade.load(face_cascade_name))
@@ -43,6 +45,9 @@ int main(int argc, char *argv[]){
 
             /* Start the face detection function */
             DetectAndDraw(frame);
+
+            lap_time = clock() - begin_time;
+            cout << float(lap_time) / CLOCKS_PER_SEC * 1000 << " ms" << endl;
 
             /** If you press ESC, q, or Q , the process will end **/
             char ch = (char)waitKey(10);
