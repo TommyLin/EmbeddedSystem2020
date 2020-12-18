@@ -1,7 +1,6 @@
 /** FaceDetection.cpp **/
 #include <opencv2/opencv.hpp>
 #include <iostream>
-#include <stdio.h>
 
 using namespace std;
 using namespace cv;
@@ -20,12 +19,36 @@ CascadeClassifier face_cascade; // Declare the face classifier
 CascadeClassifier eyes_cascade; // Declare the eyes classifier
 String window_name = "Face detection";
 
+
+class Timer
+{
+public:
+    Timer() { reset(); }
+
+    double elapsed() {
+        clock_gettime(CLOCK_REALTIME, &end_);
+        return end_.tv_sec - beg_.tv_sec + (end_.tv_nsec - beg_.tv_nsec) / 1000000000.;
+    }
+
+    void reset() { clock_gettime(CLOCK_REALTIME, &beg_); }
+
+    void show_time(string str) {
+        cout << elapsed() << " - " << str << endl;
+        reset();
+    }
+
+private:
+    timespec beg_, end_;
+};
+
+
+Timer tmr;
+
+
 int main(int argc, char *argv[]) {
     /* Open the web camera */
     VideoCapture capture = VideoCapture(2);
     Mat frame, image;
-    const clock_t begin_time = clock();
-    clock_t lap_time;
 
     /** Load cascade classifiers **/
     if (!face_cascade.load(face_cascade_name))
@@ -37,17 +60,26 @@ int main(int argc, char *argv[]) {
     if (capture.isOpened()) {
         cout << "Face Detection Started..." << endl;
 
+        // set propety of the frame
+#if 0
+        capture.set(cv::CAP_PROP_FRAME_WIDTH, 480);
+        capture.set(cv::CAP_PROP_FRAME_HEIGHT, 360);
+#endif
+        cout << capture.get(cv::CAP_PROP_FRAME_WIDTH) << "x";
+        cout << capture.get(cv::CAP_PROP_FRAME_HEIGHT) << endl;
+
         for (;;) {
             /* Get image from camera */
             capture >> frame;
             if (frame.empty())
                 PANIC("Error capture frame");
 
+            cout << "==================" << endl;
+
             /* Start the face detection function */
             DetectAndDraw(frame);
 
-            lap_time = clock() - begin_time;
-            cout << float(lap_time) / CLOCKS_PER_SEC * 1000 << " ms" << endl;
+            tmr.show_time("main");
 
             /** If you press ESC, q, or Q , the process will end **/
             char ch = (char)waitKey(10);
@@ -67,19 +99,23 @@ void DetectAndDraw(Mat frame) {
     int radius;
 
     /* Convert to gray scale */
-    cvtColor(frame, frame_gray, COLOR_BGR2GRAY);
-    //imshow("grayscale", frame_gray);
+    cvtColor(frame, frame_resize, COLOR_BGR2GRAY);
+    //imshow("grayscale", frame_resize);
+    tmr.show_time("cvtColor");
 
     /* Resize the grayscale Image */
-    //resize(frame_gray, frame_resize, Size(), 1, 1, INTER_LINEAR);
+    resize(frame_resize, frame_gray, Size(320, 240), 1, 1, INTER_LINEAR);
     //imshow("resize", frame_resize);
+    tmr.show_time("resize");
 
     /* Histogram equalization */
     equalizeHist(frame_gray, frame_gray);
     //imshow("equalize", frame_gray);
+    tmr.show_time("equalizeHist");
 
     /* Detect faces of different sizes using cascade classifier */
     face_cascade.detectMultiScale(frame_gray, faces, 1.1, 5, CV_HAAR_SCALE_IMAGE, Size(30, 30));
+    tmr.show_time("detectMultiScale");
 
     /** Draw circles around the faces **/
     for (size_t i = 0; i < faces.size(); i++)
@@ -87,23 +123,27 @@ void DetectAndDraw(Mat frame) {
         Point center;
 
         /* Draw rectangular on face */
-        rectangle(frame, faces[i], Scalar(255, 0, 0), 3, 8, 0);
+        Rect head = faces[i] + Point(faces[i].x, faces[i].y) + Size(faces[i].width, faces[i].height);
+        rectangle(frame, head, Scalar(255, 0, 0), 3, 8, 0);
 
         Mat faceROI = frame_gray(faces[i]);
 
         /* Detection of eyes int the input image */
         eyes_cascade.detectMultiScale(faceROI, eyes, 1.1, 1, CV_HAAR_SCALE_IMAGE, Size(3, 3));
+        tmr.show_time("Detect");
 
         /** Draw circles around eyes **/
         for (size_t j = 0; j < eyes.size(); j++)
         {
-            center.x = cvRound((faces[i].x + eyes[j].x + eyes[j].width * 0.5));
-            center.y = cvRound((faces[i].y + eyes[j].y + eyes[j].height * 0.5));
-            radius = cvRound((eyes[j].width + eyes[j].height) * 0.25);
+            center.x = cvRound((faces[i].x + eyes[j].x + eyes[j].width * 0.5) * 2);
+            center.y = cvRound((faces[i].y + eyes[j].y + eyes[j].height * 0.5) * 2);
+            radius = cvRound((eyes[j].width + eyes[j].height) * 0.25 * 2);
             circle(frame, center, radius, Scalar(0, 255, 0), 3, 8, 0);
         }
+        tmr.show_time("Draw");
     }
 
     // Show Processed Image with detected faces
     imshow( "Face Detection", frame);
+    tmr.show_time("imshow");
 }
