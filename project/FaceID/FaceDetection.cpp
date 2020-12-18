@@ -26,19 +26,19 @@ int main(int argc, char *argv[]){
     Mat frame, image;
 
     /** Load cascade classifiers **/
-    if(!face_cascade.load(face_cascade_name))
+    if (!face_cascade.load(face_cascade_name))
         PANIC("Error loading face cascade");
-    if(!eyes_cascade.load(eyes_cascade_name))
+    if (!eyes_cascade.load(eyes_cascade_name))
         PANIC("Error loading eyes cascade");
 
     /** After the camera is opened **/
-    if(capture.isOpened()){
-        cout<<"Face Detection Started..."<<endl;
+    if (capture.isOpened()) {
+        cout << "Face Detection Started..." << endl;
 
-        for(;;){
+        for (;;) {
             /* Get image from camera */
-            capture>>frame;
-            if(frame.empty())
+            capture >> frame;
+            if (frame.empty())
                 PANIC("Error capture frame");
 
             /* Start the face detection function */
@@ -46,17 +46,16 @@ int main(int argc, char *argv[]){
 
             /** If you press ESC, q, or Q , the process will end **/
             char ch = (char)waitKey(10);
-            if(ch==27 || ch=='q' || ch=='Q')
+            if (ch == 27 || ch == 'q' || ch == 'Q')
                 break;
         }
-    }
-    else
+    } else
         PANIC("Error open camera");
 
     return 0;
 }
 
-void DetectAndDraw(Mat frame){
+void DetectAndDraw(Mat frame) {
     /* Declare vector for faces and eyes */
     std::vector<Rect> faces, eyes;
     Mat frame_gray, frame_resize;
@@ -93,9 +92,9 @@ void DetectAndDraw(Mat frame){
         /** Draw circles around eyes **/
         for (size_t j = 0; j < eyes.size(); j++)
         {
-            center.x = cvRound((faces[i].x + eyes[j].x + eyes[j].width*0.5));
-            center.y = cvRound((faces[i].y + eyes[j].y + eyes[j].height*0.5));
-            radius = cvRound((eyes[j].width + eyes[j].height)*0.25);
+            center.x = cvRound((faces[i].x + eyes[j].x + eyes[j].width * 0.5));
+            center.y = cvRound((faces[i].y + eyes[j].y + eyes[j].height * 0.5));
+            radius = cvRound((eyes[j].width + eyes[j].height) * 0.25);
             circle(frame, center, radius, Scalar(0, 255, 0), 3, 8, 0);
         }
     }
