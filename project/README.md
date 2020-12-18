@@ -47,6 +47,24 @@
 
 *1. The resolution varies with monitor attached. It can be 640x480 or 1280x1024.
 
+
+## :heavy_check_mark: USB Device Mode
+
+### Mass storage class
+1. Build image file
+   ```
+   # dd if=/dev/zero of=vfat.img bs=1M count=20
+   # mkfs.vfat vfat.img
+   ```
+2. 
+   ```
+   # losetup /dev/loop0 vfat.img
+   # insmod -f gadgetfs.ko
+   # insmod -f g_mass_storage.ko file=/dev/loop0 stall=0 removable=1
+   ```
+
+
+
 ## :heavy_check_mark: Command Line Interface
 
 ### Disable cursor blink
