@@ -74,12 +74,8 @@ int main(int argc, char *argv[]) {
             if (frame.empty())
                 PANIC("Error capture frame");
 
-            cout << "==================" << endl;
-
             /* Start the face detection function */
             DetectAndDraw(frame);
-
-            tmr.show_time("main");
 
             /** If you press ESC, q, or Q , the process will end **/
             char ch = (char)waitKey(10);
@@ -97,6 +93,8 @@ void DetectAndDraw(Mat frame) {
     std::vector<Rect> faces, eyes;
     Mat frame_gray, frame_resize;
     int radius;
+
+    tmr.show_time("==================");
 
     /* Convert to gray scale */
     cvtColor(frame, frame_resize, COLOR_BGR2GRAY);
