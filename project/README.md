@@ -51,18 +51,24 @@
 ## :heavy_check_mark: USB Device Mode
 
 ### Mass storage class
-1. Build image file
+- Prepare image file (do it once)
    ```
    # dd if=/dev/zero of=vfat.img bs=1M count=20
    # mkfs.vfat vfat.img
    ```
-2. 
+- Insert usb mass storage device mode driver
    ```
    # losetup /dev/loop0 vfat.img
+   # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
    # insmod -f gadgetfs.ko
-   # insmod -f g_mass_storage.ko file=/dev/loop0 stall=0 removable=1
+   # insmod -f g_mass_storage.ko file=/dev/loop0 stall=0 removable=1 iSerialNumber=123456
    ```
-
+   - Plug usb into host
+   
+* Rebuild module dependency
+   ```
+   /sbin/depmod -a
+   ```
 
 
 ## :heavy_check_mark: Command Line Interface
