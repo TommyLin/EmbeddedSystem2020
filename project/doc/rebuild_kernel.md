@@ -13,19 +13,21 @@
   ```
 
 ### 3. Change kernel options
+*
   ```
   # cp config_linux .config
   # make menuconfig
   ```
 
 ### 4. Build image and drivers
+*
   ```
-  export ARCH=arm
-  export CROSS_COMPILE=arm-linux-gnueabihf-
-  make dtbs
-  make zImage
+  # export ARCH=arm
+  # export CROSS_COMPILE=arm-linux-gnueabihf-
+  # make dtbs
+  # make zImage
   ```
-  Target files:
+  Output files:
   - e9-sabresd.dtb => arch/arm/boot/dts/e9-sabresd.dtb
   - imx6q-sabresd.dtb => arch/arm/boot/dts/imx6q-sabresd.dtb
   - zImage => arch/arm/boot/zImage
