@@ -34,12 +34,12 @@
 
 * :cake: [How to install mpg123 on E9V3](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/howto_install_mpg123.md)
 
-### Play mp3 files in a folder
+### :musical_note: Play mp3 files in a folder
 ```
 # mpg123 /root/mp3/spring/*
 ```
 
-### Volume Control (application)
+### :musical_note: Volume Control (application)
 - Source file: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
 - Command: `# volumectrl`
 - Keyboard input code: 114 => volume +  (max = 100%)
