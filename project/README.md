@@ -87,7 +87,13 @@ Overlay information (OSD)
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ether.ko
    ```
-   :beetle: NG =< Core dump
+   :beetle: Segmentation fault
+   ```
+   [ 3560.070472] [<8082439c>] (register_netdevice) from [<80824608>] (register_netdev+0x14/0x24)
+   [ 3560.077546] [<80824608>] (register_netdev) from [<8061e2e4>] (gether_register_netdev+0x1c/0xc4)
+   [ 3560.084969] [<8061e2e4>] (gether_register_netdev) from [<7f177198>] (eth_bind+0xe8/0x3e0 [g_ether])
+   ......
+   ```
 
 ### :link: [Network Control Model (NCM) Devices](https://www.usb.org/document-library/network-control-model-devices-specification-v10-and-errata-and-adopters-agreement) (g_ncm.ko)
 -
