@@ -110,6 +110,8 @@ Overlay information (OSD)
 
 - Refernces
    - List all ethernet devices: `# ifconfig -a`
+   - [编译kernel固件](http://wiki.armbbs.net/tqwiki/public/docs/E9V3#10802) from E9V3 - Embedsky WIKI
+   - [Build kernel from source](https://github.com/TommyLin/EmbeddedSystem2020/edit/main/project/doc/rebuild_kernel.md)
 
 
 
