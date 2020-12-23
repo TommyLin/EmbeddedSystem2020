@@ -34,7 +34,7 @@ SRCS     = \
 OBJS     = $(addprefix $(OBJSDIR)/,$(SRCS:.cpp=.o))
 CSRCS    =
 COBJS    = $(CSRCS:.c=.o)
-BINARIES = auto_play show_fbi osd volumectrl gpio_monitor DHTtester
+BINARIES = auto_play show_fbi osd volumectrl gpio_monitor DHTtester input_monitor touch
 TARGET   = $(addprefix $(BUILDDIR)/,$(BINARIES))
 BUILDDIR = output
 OBJSDIR  = $(BUILDDIR)/objs
