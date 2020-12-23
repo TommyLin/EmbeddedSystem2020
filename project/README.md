@@ -54,10 +54,10 @@ Overlay information (OSD)
 
 
 
-## :heavy_check_mark: USB Device Mode
+## :heavy_check_mark: USB Device Mode (gadget)
 ![USB](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/usb.png)
 
-### :link: Mass storage class
+### :link: Mass storage class (g_mass_storage.ko)
 - Prepare a 20 MB image file (do it once)
    ```
    # cd /root
@@ -76,37 +76,36 @@ Overlay information (OSD)
 - References
    - Rebuild module dependency: `# /sbin/depmod -a`
 
-### :link: USB serial
+### :link: USB serial (g_serial.ko)
 -
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_serial.ko
    ```
 
-### :link: [Remote Network Driver Interface Specification (RNDIS)](https://docs.microsoft.com/zh-hk/windows-hardware/drivers/network/remote-ndis--rndis-2)
+### :link: [Remote Network Driver Interface Specification (RNDIS)](https://docs.microsoft.com/zh-hk/windows-hardware/drivers/network/remote-ndis--rndis-2) (g_ether.ko)
 -
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ether.ko
    ```
    :beetle: NG =< Core dump
 
-### :link: [Network Control Model (NCM) Devices](https://www.usb.org/document-library/network-control-model-devices-specification-v10-and-errata-and-adopters-agreement)
+### :link: [Network Control Model (NCM) Devices](https://www.usb.org/document-library/network-control-model-devices-specification-v10-and-errata-and-adopters-agreement) (g_ncm.ko)
 -
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ncm.ko
    ```
-   :warning: There is NO built-in windows device driver for NCM
+   :warning: There is NO WINDOWS built-in device driver for NCM.
 
 - Configuration after load NCM device driver
-   - Device side:
-   ```
-   # ifconfig usb0 up
-   # ifconfig usb0 192.168.1.1
-   ```
-   - Host side:
-   ```
-   # ifconfig usb0 192.168.1.2
-   # ping 192.168.1.1
-   ```
+   |                  |Device side                    | Host side                                |
+   | ---------------- | ----------------------------- | ---------------------------------------- |
+   | Enable interface | `# ifconfig usb0 up`          |                                          |
+   | Configure IP     | `# ifconfig usb0 192.168.1.1` | `# ifconfig enx5a5098106ac6 192.168.1.2` |
+
+- Ethernet testing
+   - `# ping 192.168.1.2` from device
+   - `# ping 192.168.1.1` from host
+   - `# ssh root@192.168.1.1` from host
 
 - Refernces
    - List all ethernet devices: `# ifconfig -a`
