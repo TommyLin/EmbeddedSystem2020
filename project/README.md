@@ -70,21 +70,18 @@
 
 ### [Gadget] USB serial
    ```
-   # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
-   # insmod -f g_serial.ko
+   # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_serial.ko
    ```
 
 ### [Gadget] rndis
    ```
-   # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
-   # insmod -f g_ether.ko
+   # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ether.ko
    ```
    :beetle: NG =< Core dump
 
 ### [Gadget] NCM???
    ```
-   # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
-   # insmod -f g_ncm.ko
+   # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ncm.ko
    ```
    :beetle: No built-in windows driver
 
