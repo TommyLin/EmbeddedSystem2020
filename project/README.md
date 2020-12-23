@@ -35,7 +35,11 @@ Overlay information (OSD)
   # echo 0 > /sys/class/graphics/fb1/blank
   ```
 - Overlay text on auxilary framebuffer `/dev/fb1` by calling [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
-
+- List input device information"
+  ```
+  # sudo apt-get install input-utils
+  # lsinput
+  ```
 
 
 ## :heavy_check_mark: Audio
