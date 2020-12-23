@@ -10,11 +10,13 @@
 
 ### :tv: Background (`/dev/fb0`)
 Diaplay wallpapers (same as Lab2-3)
+- Command: `# /root/auto_play`
 - Source: [project/src/auto_play.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/auto_play.cpp)
    - Able to assign framebuffer device node
 
 ### :tv: Foreground (`/dev/fb1`)
 Overlay information (OSD)
+- Command: `# /root/osd`
 - Source: [project/src/osd.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
    - Get system time, format date / time string then display on screen
 - Source: [project/src/get_ip.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/get_ip.cpp)
@@ -33,6 +35,7 @@ Overlay information (OSD)
 
 ## :heavy_check_mark: Audio
 
+### :musical_note: Prepare testing environment
 - [How to install mpg123 on E9V3](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/howto_install_mpg123.md)
 
 ### :musical_note: Play mp3 files in a folder
@@ -41,8 +44,8 @@ Overlay information (OSD)
 ```
 
 ### :musical_note: Volume Control (application)
-- Source: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
 - Command: `# /root/volumectrl`
+- Source: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
 - Keyboard input code: 114 => volume +  (max = 100%)
 - Keyboard input code: 115 => volume -  (min =   0%)
 
