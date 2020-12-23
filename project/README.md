@@ -70,10 +70,8 @@ Overlay information (OSD)
    ```
    - Plug usb into host
    
-- Rebuild module dependency
-   ```
-   /sbin/depmod -a
-   ```
+- References
+   - Rebuild module dependency: `# /sbin/depmod -a`
 
 ### :link: USB serial
 -
