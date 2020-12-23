@@ -32,7 +32,7 @@ Overlay information (OSD)
   # echo 0 > /sys/class/graphics/fb1/blank
   ```
 - Overlay text on auxilary framebuffer `/dev/fb1` by calling [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
-   
+
 
 
 ## :heavy_check_mark: Audio
@@ -72,7 +72,7 @@ Overlay information (OSD)
    # insmod -f g_mass_storage.ko file=/dev/loop0 stall=0 removable=1 iSerialNumber=123456
    ```
    - Plug usb into host
-   
+
 - References
    - Rebuild module dependency: `# /sbin/depmod -a`
 
@@ -82,19 +82,34 @@ Overlay information (OSD)
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_serial.ko
    ```
 
-### :link: rndis
+### :link: [Remote Network Driver Interface Specification (RNDIS)](https://docs.microsoft.com/zh-hk/windows-hardware/drivers/network/remote-ndis--rndis-2)
 -
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ether.ko
    ```
    :beetle: NG =< Core dump
 
-### :link: NCM???
+### :link: [Network Control Model (NCM) Devices](https://www.usb.org/document-library/network-control-model-devices-specification-v10-and-errata-and-adopters-agreement)
 -
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ncm.ko
    ```
-   :warning: No built-in windows driver
+   :warning: There is NO built-in windows device driver for NCM
+
+- Configuration after load NCM device driver
+   - Device side:
+   ```
+   # ifconfig usb0 up
+   # ifconfig usb0 192.168.1.1
+   ```
+   - Host side:
+   ```
+   # ifconfig usb0 192.168.1.2
+   # ping 192.168.1.1
+   ```
+
+- Refernces
+   - List all ethernet devices: `# ifconfig -a`
 
 
 
