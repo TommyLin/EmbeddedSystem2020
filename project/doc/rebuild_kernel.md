@@ -1,3 +1,4 @@
+## Steps to build zImage and device drivers
 
 ### 1. Download kernel source (for E9V3)
 * [congvue/e9v3](https://github.com/congvue/e9v3)
@@ -7,8 +8,11 @@
 Clone source and put source code to $(kernel)/drivers/net/wireless/rtlwifi
 
 ### 3. `# make menuconfig`
+  - Need to setup cross compile flags
 
 ### 4. `# make`
+
+
 
 ## Package might required to build kernel
 ```
