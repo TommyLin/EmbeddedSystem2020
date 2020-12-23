@@ -27,6 +27,10 @@
   # make dtbs
   # make zImage
   ```
+* Make modules(*.ko) only
+  ```
+  # make modules
+  ```
 * Output files:
   - e9-sabresd.dtb => arch/arm/boot/dts/e9-sabresd.dtb
   - imx6q-sabresd.dtb => arch/arm/boot/dts/imx6q-sabresd.dtb
