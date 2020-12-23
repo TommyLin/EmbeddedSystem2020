@@ -67,20 +67,20 @@ Overlay information (OSD)
 - Insert usb mass storage device mode driver
    ```
    # losetup /dev/loop0 /root/vfat.img
-   # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
-   # insmod -f gadgetfs.ko
-   # insmod -f g_mass_storage.ko file=/dev/loop0 stall=0 removable=1 iSerialNumber=123456
+   # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_mass_storage.ko file=/dev/loop0 stall=0 removable=1 iSerialNumber=123456
    ```
-   - Plug usb into host
-
-- References
-   - Rebuild module dependency: `# /sbin/depmod -a`
+- Plug usb into host, a storage device will appear.
+   - Linux - /dev/sdx, e.g. /dev/sdb
+   - Windows - Diskx, e.g. H:
 
 ### :link: USB serial (g_serial.ko)
 -
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_serial.ko
    ```
+- Plug usb into host, a serial device will appear.
+   - Linux - /dev/ttyACMn, e.g. /dev/ttyACM0
+   - Windows - COMn, e.g. COM6
 
 ### :link: [Remote Network Driver Interface Specification (RNDIS)](https://docs.microsoft.com/zh-hk/windows-hardware/drivers/network/remote-ndis--rndis-2) (g_ether.ko)
 -
@@ -107,7 +107,8 @@ Overlay information (OSD)
    - `# ping 192.168.1.1` from host
    - `# ssh root@192.168.1.1` from host
 
-- Refernces
+### Refernces
+   - Rebuild module dependency: `# /sbin/depmod -a`
    - List all ethernet devices: `# ifconfig -a`
    - [编译kernel固件](http://wiki.armbbs.net/tqwiki/public/docs/E9V3#10802) from E9V3 - Embedsky WIKI
    - [Build kernel from source](https://github.com/TommyLin/EmbeddedSystem2020/edit/main/project/doc/rebuild_kernel.md)
