@@ -2,37 +2,38 @@
 
 
 ## :heavy_check_mark: [HDMI] Face Recognition
-
+### :mag: Face Detect
+- Source: [project/FaceID/FaceDetection.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/FaceID/FaceDetection.cpp)
 
 
 ## :heavy_check_mark: [LCD] Display
 
-### :tv: Background
-1. [`/dev/fb0`] Diaplay wallpapers (Same as Lab2-3)
-   - [project/src/auto_play.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/auto_play.cpp)
-      * Able to assign framebuffer device node
+### :tv: Background (`/dev/fb0`)
+Diaplay wallpapers (same as Lab2-3)
+- Source: [project/src/auto_play.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/auto_play.cpp)
+   - Able to assign framebuffer device node
 
-### :tv: Foreground
-1. [`/dev/fb1`] Overlay information
-   - [project/src/osd.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
-      * Get system time and format date / time string
-   - [project/src/get_ip.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/get_ip.cpp)
-      * Get device (eth0) ip address
-   - [project/src/gpio.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/gpio.cpp)
-      * Show or no show OSD controlled by IR detector connected to GPIO27
-      * [project/src/osd.cpp line 53](https://github.com/TommyLin/EmbeddedSystem2020/blob/d8c9fb26e4e9000c02f17c13cc9672b691d6b903/project/src/osd.cpp#L53)
+### :tv: Foreground (`/dev/fb1`)
+Overlay information (OSD)
+- Source: [project/src/osd.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
+   - Get system time, format date / time string then display on screen
+- Source: [project/src/get_ip.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/get_ip.cpp)
+   - Get ethernet (eth0) ip address
+- Source: [project/src/gpio.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/gpio.cpp)
+   - Show or no show OSD is controlled by IR detector which connected to GPIO27
+   - GPIO API is called here: [project/src/osd.cpp line 53](https://github.com/TommyLin/EmbeddedSystem2020/blob/d8c9fb26e4e9000c02f17c13cc9672b691d6b903/project/src/osd.cpp#L53)
 
-### :tv: Notes
-   - Enable /dev/fb1
-     ```
-     # echo 0 > /sys/class/graphics/fb1/blank
-     ```
-   - Overlay text on auxilary framebuffer `/dev/fb1` by calling [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
+### :tv: References
+- Enable `/dev/fb1`
+  ```
+  # echo 0 > /sys/class/graphics/fb1/blank
+  ```
+- Overlay text on auxilary framebuffer `/dev/fb1` by calling [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
    
 
 ## :heavy_check_mark: Audio
 
-* :cake: [How to install mpg123 on E9V3](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/howto_install_mpg123.md)
+- [How to install mpg123 on E9V3](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/howto_install_mpg123.md)
 
 ### :musical_note: Play mp3 files in a folder
 ```
@@ -40,8 +41,8 @@
 ```
 
 ### :musical_note: Volume Control (application)
-- Source file: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
-- Command: `# volumectrl`
+- Source: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
+- Command: `# /root/volumectrl`
 - Keyboard input code: 114 => volume +  (max = 100%)
 - Keyboard input code: 115 => volume -  (min =   0%)
 
@@ -49,6 +50,7 @@
 ## :heavy_check_mark: USB Device Mode
 
 ### [Gadget] Mass storage class
+![USB](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/usb.png)
 - Prepare image file (do it once)
    ```
    # dd if=/dev/zero of=vfat.img bs=1M count=20
