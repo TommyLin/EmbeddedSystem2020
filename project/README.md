@@ -79,14 +79,14 @@
    # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
    # insmod -f g_ether.ko
    ```
-   NG =< Core dump
+   :beetle: NG =< Core dump
 
 ### [Gadget] NCM???
    ```
    # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
    # insmod -f g_ncm.ko
    ```
-   No built-in windows driver
+   :beetle: No built-in windows driver
 
 
 
