@@ -39,9 +39,10 @@ Overlay information (OSD)
 - [How to install mpg123 on E9V3](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/howto_install_mpg123.md)
 
 ### :musical_note: Play mp3 files in a folder
-```
-# mpg123 /root/mp3/spring/*
-```
+-
+   ```
+   # mpg123 /root/mp3/spring/*
+   ```
 
 ### :musical_note: Volume Control (application)
 - Command: `# /root/volumectrl`
@@ -51,44 +52,48 @@ Overlay information (OSD)
 
 
 ## :heavy_check_mark: USB Device Mode
-
-### [Gadget] Mass storage class
 ![USB](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/doc/usb.png)
-- Prepare image file (do it once)
+
+### :link: Mass storage class
+- Prepare a 20 MB image file (do it once)
    ```
+   # cd /root
    # dd if=/dev/zero of=vfat.img bs=1M count=20
    # mkfs.vfat vfat.img
    ```
 - Insert usb mass storage device mode driver
    ```
-   # losetup /dev/loop0 vfat.img
+   # losetup /dev/loop0 /root/vfat.img
    # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
    # insmod -f gadgetfs.ko
    # insmod -f g_mass_storage.ko file=/dev/loop0 stall=0 removable=1 iSerialNumber=123456
    ```
    - Plug usb into host
    
-* Rebuild module dependency
+- Rebuild module dependency
    ```
    /sbin/depmod -a
    ```
 
-### [Gadget] USB serial
+### :link: USB serial
+-
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_serial.ko
    ```
 
-### [Gadget] rndis
+### :link: rndis
+-
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ether.ko
    ```
    :beetle: NG =< Core dump
 
-### [Gadget] NCM???
+### :link: NCM???
+-
    ```
    # insmod -f /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/g_ncm.ko
    ```
-   :beetle: No built-in windows driver
+   :warning: No built-in windows driver
 
 
 
