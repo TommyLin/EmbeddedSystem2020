@@ -7,19 +7,27 @@
 
 ## :heavy_check_mark: [LCD] Display
 
-### 
-1. [Background `/dev/fb0`] Diaplay wallpapers (Same as Lab2-3)
-   - [project/src/auto_play.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/auto_play.cpp) - Able to assign framebuffer device node
-1. [Foreground `/dev/fb1`] Overlay information
-   - [project/src/osd.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp) - Get system time and format date / time string
-   - [project/src/get_ip.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/get_ip.cpp) - Get device (eth0) ip address
+### Background
+1. [`/dev/fb0`] Diaplay wallpapers (Same as Lab2-3)
+   - [project/src/auto_play.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/auto_play.cpp)
+      * Able to assign framebuffer device node
 
-#### Notes
+### Foreground
+1. [`/dev/fb1`] Overlay information
+   - [project/src/osd.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
+      * Get system time and format date / time string
+   - [project/src/get_ip.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/get_ip.cpp)
+      * Get device (eth0) ip address
+   - [project/src/gpio.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/gpio.cpp)
+      * Show or no show OSD controlled by IR detector connected to GPIO27
+      * [project/src/osd.cpp line 53](https://github.com/TommyLin/EmbeddedSystem2020/blob/d8c9fb26e4e9000c02f17c13cc9672b691d6b903/project/src/osd.cpp#L53)
+
+### Notes
    - Enable /dev/fb1
      ```
      # echo 0 > /sys/class/graphics/fb1/blank
      ```
-   - Display on auxilary framebuffer /dev/fb1 by call [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
+   - Overlay text on auxilary framebuffer `/dev/fb1` by calling [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
    
 
 ## :heavy_check_mark: Audio
