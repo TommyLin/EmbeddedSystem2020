@@ -91,11 +91,11 @@ int main(int argc, char **argv, char **envp)
                 continue;
             if (t.type == EV_KEY) {
                 switch (t.code) {
-                case 114:
-                    vc.inc(step);
-                    break;
-                case 115:
+                case KEY_VOLUMEDOWN: // 114
                     vc.dec(step);
+                    break;
+                case KEY_VOLUMEUP: // 115
+                    vc.inc(step);
                     break;
                 }
             }
