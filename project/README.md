@@ -6,6 +6,7 @@
 - Source: [project/FaceID/FaceDetection.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/FaceID/FaceDetection.cpp)
 
 
+
 ## :heavy_check_mark: [LCD] Display
 
 ### :tv: Background (`/dev/fb0`)
@@ -33,6 +34,7 @@ Overlay information (OSD)
 - Overlay text on auxilary framebuffer `/dev/fb1` by calling [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
    
 
+
 ## :heavy_check_mark: Audio
 
 ### :musical_note: Prepare testing environment
@@ -49,6 +51,7 @@ Overlay information (OSD)
 - Source: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
 - Keyboard input code: 114 => volume +  (max = 100%)
 - Keyboard input code: 115 => volume -  (min =   0%)
+
 
 
 ## :heavy_check_mark: USB Device Mode
@@ -96,24 +99,27 @@ Overlay information (OSD)
 
 
 ## :heavy_check_mark: Basic Framebuffer Information
-| fb#      | Buffer Size | bits | virt. size |
-| -------- | ----------: | ---- | ---------: |
-| /dev/fb0 |   8,294,400 |  16  | 640X480(1) |
-| /dev/fb1 |     921,600 |  32  | 240X320X3  |
-| /dev/fb2 |   1,843,200 |  24  |   1024X600 |
+- Source: [project/src/show_fbi.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/show_fbi.cpp)
+-
+   | Device Node | Buffer Size | bits | Virt. Size |
+   | ----------- | ----------: | ---- | ---------: |
+   | /dev/fb0    |   8,294,400 |  16  | 640X480(1) |
+   | /dev/fb1    |     921,600 |  32  | 240X320X3  |
+   | /dev/fb2    |   1,843,200 |  24  |   1024X600 |
 
-*1. The resolution varies with monitor attached. It can be 640x480 or 1280x1024.
+   *1. The resolution varies with monitor attached. It can be 640x480 or 1280x1024.
+
 
 
 ## :heavy_check_mark: Command Line Interface
 
 ### Disable cursor blink
-`# echo 0 > /sys/class/graphics/fbcon/cursor_blink`
+- `# echo 0 > /sys/class/graphics/fbcon/cursor_blink`
 
 ### Enable frambuffer
 
 #### Enable /dev/fb1
-`# echo 0 > /sys/class/graphics/fb1/blank`
+- `# echo 0 > /sys/class/graphics/fb1/blank`
 
 #### Enable /dev/fb2
-`# echo 0 > /sys/class/graphics/fb2/blank`
+- `# echo 0 > /sys/class/graphics/fb2/blank`
