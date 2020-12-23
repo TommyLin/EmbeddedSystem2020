@@ -38,16 +38,6 @@
 - Keyboard input code: 115 => volume -  (min =   0%)
 
 
-## :heavy_check_mark: Basic Framebuffer Information
-| fb#      | Buffer Size | bits | virt. size |
-| -------- | ----------: | ---- | ---------: |
-| /dev/fb0 |   8,294,400 |  16  | 640X480(*1) |
-| /dev/fb1 |     921,600 |  32  | 240X320X3 |
-| /dev/fb2 |   1,843,200 |  24  |   1024X600 |
-
-*1. The resolution varies with monitor attached. It can be 640x480 or 1280x1024.
-
-
 ## :heavy_check_mark: USB Device Mode
 
 ### [Gadget] Mass storage class
@@ -89,6 +79,17 @@
    # insmod -f g_ncm.ko
    ```
    No built-in windows driver
+
+
+
+## :heavy_check_mark: Basic Framebuffer Information
+| fb#      | Buffer Size | bits | virt. size |
+| -------- | ----------: | ---- | ---------: |
+| /dev/fb0 |   8,294,400 |  16  | 640X480(1) |
+| /dev/fb1 |     921,600 |  32  | 240X320X3  |
+| /dev/fb2 |   1,843,200 |  24  |   1024X600 |
+
+*1. The resolution varies with monitor attached. It can be 640x480 or 1280x1024.
 
 
 ## :heavy_check_mark: Command Line Interface
