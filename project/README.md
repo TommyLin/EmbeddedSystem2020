@@ -50,7 +50,7 @@
 
 ## :heavy_check_mark: USB Device Mode
 
-### Mass storage class
+### [Gadget] Mass storage class
 - Prepare image file (do it once)
    ```
    # dd if=/dev/zero of=vfat.img bs=1M count=20
@@ -69,6 +69,26 @@
    ```
    /sbin/depmod -a
    ```
+
+### [Gadget] USB serial
+   ```
+   # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
+   # insmod -f g_serial.ko
+   ```
+
+### [Gadget] rndis
+   ```
+   # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
+   # insmod -f g_ether.ko
+   ```
+   NG =< Core dump
+
+### [Gadget] NCM???
+   ```
+   # cd /lib/modules/4.1.15-1.0.0+g3924425/kernel/drivers/usb/gadget/legacy/
+   # insmod -f g_ncm.ko
+   ```
+   No built-in windows driver
 
 
 ## :heavy_check_mark: Command Line Interface
