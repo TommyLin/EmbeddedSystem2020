@@ -7,12 +7,12 @@
 
 ## :heavy_check_mark: [LCD] Display
 
-### Background
+### :tv: Background
 1. [`/dev/fb0`] Diaplay wallpapers (Same as Lab2-3)
    - [project/src/auto_play.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/auto_play.cpp)
       * Able to assign framebuffer device node
 
-### Foreground
+### :tv: Foreground
 1. [`/dev/fb1`] Overlay information
    - [project/src/osd.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
       * Get system time and format date / time string
@@ -22,7 +22,7 @@
       * Show or no show OSD controlled by IR detector connected to GPIO27
       * [project/src/osd.cpp line 53](https://github.com/TommyLin/EmbeddedSystem2020/blob/d8c9fb26e4e9000c02f17c13cc9672b691d6b903/project/src/osd.cpp#L53)
 
-### Notes
+### :tv: Notes
    - Enable /dev/fb1
      ```
      # echo 0 > /sys/class/graphics/fb1/blank
