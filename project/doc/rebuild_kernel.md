@@ -39,3 +39,10 @@
 # sudo apt install libncurses5-dev libncursesw5-dev
 # sudo apt install lzop
 ```
+
+
+
+## References
+### github
+1. [zhangxuran11/E9v3_bsp](https://github.com/zhangxuran11/E9v3_bsp)
+1. [Bugsxl/TQIMX6_kernel](https://github.com/Bugsxl/TQIMX6_kernel)
