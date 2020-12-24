@@ -1,4 +1,4 @@
-# 嵌入式系統設計 期末專題
+# Embedded System Design Term Project
 
 
 ## :heavy_check_mark: [HDMI] Face Recognition
