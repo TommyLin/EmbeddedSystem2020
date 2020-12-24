@@ -5,6 +5,9 @@
 ### :mag: Face Detect
 - Source: [project/FaceID/FaceDetection.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/FaceID/FaceDetection.cpp)
 
+### :mag: Face Recognition
+- Source: [project/FaceRec/facerec_from_webcam_faster_speedup.py](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/FaceRec/facerec_from_webcam_faster_speedup.py)
+
 
 
 ## :heavy_check_mark: [LCD] Display
