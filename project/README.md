@@ -147,10 +147,6 @@ Overlay information (OSD)
 ### Disable cursor blink
 - `# echo 0 > /sys/class/graphics/fbcon/cursor_blink`
 
-### Enable frambuffer
-
-#### Enable /dev/fb1
-- `# echo 0 > /sys/class/graphics/fb1/blank`
-
-#### Enable /dev/fb2
-- `# echo 0 > /sys/class/graphics/fb2/blank`
+### Enable frambuffer (show pixels in display)
+- Enable /dev/fb1 `# echo 0 > /sys/class/graphics/fb1/blank`
+- Enable /dev/fb2 `# echo 0 > /sys/class/graphics/fb2/blank`
