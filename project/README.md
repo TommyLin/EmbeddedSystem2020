@@ -26,8 +26,7 @@ Overlay information (OSD)
    - Show or no show OSD is controlled by IR detector which connected to GPIO27
    - GPIO API is called here: [project/src/osd.cpp line 53](https://github.com/TommyLin/EmbeddedSystem2020/blob/d8c9fb26e4e9000c02f17c13cc9672b691d6b903/project/src/osd.cpp#L53)
 - Source: [project/src/touch.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/touch.cpp)
-   - Touch => Turn on OSD
-   - Nothing => Turn off OSD
+   - Using touch panel (touch) button to control OSD on / off
 
 ### :tv: References
 - Enable `/dev/fb1`
@@ -35,7 +34,7 @@ Overlay information (OSD)
   # echo 0 > /sys/class/graphics/fb1/blank
   ```
 - Overlay text on auxilary framebuffer `/dev/fb1` by calling [OpenCV api cv::putText](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/osd.cpp)
-- List input device information"
+- List all input device information. Device node /dev/input/event*
   ```
   # sudo apt-get install input-utils
   # lsinput
