@@ -1,8 +1,8 @@
 # Embedded System Design Term Project
 
 
-## Group ID: 19
 ## Members
+Group No.: 19
 | 姓名   | 學號    |
 |--------|--------|
 | 林宏文 | 0880121 |
