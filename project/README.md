@@ -55,8 +55,8 @@ Overlay information (OSD)
 ### :musical_note: Volume Control (application)
 - Command: `# /root/volumectrl`
 - Source: [project/src/volumectrl.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/src/volumectrl.cpp)
-- Keyboard input code: 114 => volume +  (max = 100%)
-- Keyboard input code: 115 => volume -  (min =   0%)
+- Keyboard input code: KEY_VOLUMEDOWN(114) => volume -  (min =   0%)
+- Keyboard input code: KEY_VOLUMEUP(115)   => volume +  (max = 100%)
 
 
 
