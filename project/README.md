@@ -1,13 +1,14 @@
 # Embedded System Design Term Project
 
 
-## Members
 Group No.: 19
+
 | 姓名   | 學號    |
 |--------|--------|
 | 林宏文 | 0880121 |
 | 莊妘家 | L091142 |
 | 劉建甫 | 0880002 |
+
 
 
 ## :heavy_check_mark: [HDMI] Face Recognition
