@@ -116,10 +116,9 @@ Overlay information (OSD)
    | ---------------- | ----------------------------- | ---------------------------------------- |
    | Enable interface | `# ifconfig usb0 up`          |                                          |
    | Configure IP     | `# ifconfig usb0 192.168.1.1` | `# ifconfig enx5a5098106ac6 192.168.1.2` |
+   | Testing          | `# ping 192.168.1.2`          | `# ping 192.168.1.1`                     |
 
-- Ethernet testing
-   - `# ping 192.168.1.2` from device
-   - `# ping 192.168.1.1` from host
+- Furthur ethernet testing
    - `# ssh root@192.168.1.1` from host
 
 ### Refernces
