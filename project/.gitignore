@@ -6,3 +6,4 @@ i2c
 volumectrl
 gpio_monitor
 output/
+FaceDetection
