@@ -1,6 +1,15 @@
 # Embedded System Design Term Project
 
 
+## Group ID: 19
+## Members
+| 姓名   | 學號    |
+|--------|--------|
+| 林宏文 | 0880121 |
+| 莊妘家 | L091142 |
+| 劉建甫 | 0880002 |
+
+
 ## :heavy_check_mark: [HDMI] Face Recognition
 ### :mag: Face Detect
 - Source: [project/FaceID/FaceDetection.cpp](https://github.com/TommyLin/EmbeddedSystem2020/blob/main/project/FaceID/FaceDetection.cpp)
